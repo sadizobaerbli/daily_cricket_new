@@ -1,4 +1,4 @@
-import 'package:dailycricket_nv/screens/home_screen.dart';
+import 'package:dailycricket_nv/screens/home/home_screen.dart';
 import 'package:dailycricket_nv/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return ScreenUtilInit(
-      designSize: Size(375, 812),
+      designSize: Size(414, 896),
       builder: () => MaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: '/splashScreen',

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
@@ -25,8 +26,8 @@ class _SplashState extends State<Splash> {
   _showImage(){
 
     return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
+      height: 896.h,
+      width: 414.w,
       child: Image.asset('asset/image_asset/splash.png', fit: BoxFit.fill,),
     );
 
