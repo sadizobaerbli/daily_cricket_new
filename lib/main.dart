@@ -1,3 +1,4 @@
+import 'package:dailycricket_nv/screens/article/article_page.dart';
 import 'package:dailycricket_nv/screens/home/home_screen.dart';
 import 'package:dailycricket_nv/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
 
           '/splashScreen': (_) => Splash(),
           '/homeScreen': (_) => HomeScreen(),
+          '/articlePage': (_) => ArticlePage(),
 
         },
       ),
