@@ -23,8 +23,17 @@ class _DailyUpdatesState extends State<DailyUpdates> {
         children: [
           Container(
             height: 117.h, width: 336.w,
+            margin: EdgeInsets.only(top: 11.w),
             padding: EdgeInsets.fromLTRB(6.w, 6.h, 15.w, 10.h),
             decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Grey.withOpacity(0.4),
+                    spreadRadius: .1,
+                    blurRadius: 5,
+                    offset: Offset(0, 0), // changes position of shadow
+                  ),
+                ],
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(15.r),
                 topRight: Radius.circular(15.r),

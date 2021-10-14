@@ -23,6 +23,14 @@ class _NewsCardState extends State<NewsCard> {
         padding: EdgeInsets.fromLTRB(10.w, 8.h, 12.w, 8.h),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(13.r),
+          boxShadow: [
+            BoxShadow(
+              color: Grey.withOpacity(0.4),
+              spreadRadius: .1,
+              blurRadius: 5,
+              offset: Offset(0, 0), // changes position of shadow
+            ),
+          ],
           color: BasicWhite,
         ),
         child: Row(

@@ -84,10 +84,12 @@ class _ArticlePageState extends State<ArticlePage> {
       ),
 
       body: Container(
+        height: MediaQuery.of(context).size.height,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _tabBar(),
-            _selectedView(tabName: _selected),
+            Expanded(child: _selectedView(tabName: _selected),),
           ],
         ),
       ),

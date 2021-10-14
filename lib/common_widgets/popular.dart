@@ -20,6 +20,16 @@ class _PopularState extends State<Popular> {
         Container(
           height: 251.h, width: double.infinity,
           margin: EdgeInsets.only(right: 15.w),
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Grey.withOpacity(0.4),
+                spreadRadius: .1,
+                blurRadius: 5,
+                offset: Offset(0, 0), // changes position of shadow
+              ),
+            ],
+          ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(12.r),
             child: Image.asset('asset/image_asset/pic_1.jpg',

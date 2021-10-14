@@ -18,7 +18,7 @@ class _TrendingState extends State<Trending> {
       children: [
 
         Container(
-          height: 187.h, width: 187.w,
+          height: 187.h, width: 190.w,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(12.r),
             child: Image.asset('asset/image_asset/pic_1.jpg',

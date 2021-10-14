@@ -2,6 +2,7 @@ import 'package:dailycricket_nv/config/color_constants.dart';
 import 'package:dailycricket_nv/config/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'daily_series_updates.dart';
 
 
 class NewsScreen extends StatefulWidget {
@@ -17,7 +18,6 @@ class _NewsScreenState extends State<NewsScreen> {
 
   _tabBar(){
     return Container(
-      margin: EdgeInsets.only(bottom: 11.h),
       child: Stack(
         children: [
           Container(
@@ -64,13 +64,15 @@ class _NewsScreenState extends State<NewsScreen> {
   }
 
   _selectedView({String? tabName}){
-    if(_selected == 'daily_updates'){ return Container(); }
-    else if(_selected == 'series_updates'){ return Container(); }
+    if(_selected == 'daily_updates'){ return DailySeriesUpdates(); }
+    else if(_selected == 'series_updates'){ return DailySeriesUpdates(); }
     else{ return Container(); }
   }
 
-  _mainPage({String? tabName}){
-    return Column(
+  _mainPage(){
+    return ListView(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       children: [
         _tabBar(),
         _selectedView(tabName: _selected),
@@ -80,6 +82,6 @@ class _NewsScreenState extends State<NewsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return _mainPage(tabName: _selected);
+    return _mainPage();
   }
 }
