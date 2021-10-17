@@ -1,5 +1,5 @@
 import 'package:dailycricket_nv/screens/article/article_page.dart';
-import 'package:dailycricket_nv/screens/home/home_screen.dart';
+import 'package:dailycricket_nv/screens/home/view/home_screen.dart';
 import 'package:dailycricket_nv/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

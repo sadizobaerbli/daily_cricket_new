@@ -8,7 +8,7 @@ import 'package:dailycricket_nv/common_widgets/popular.dart';
 import 'package:dailycricket_nv/common_widgets/trending.dart';
 import 'package:dailycricket_nv/config/color_constants.dart';
 import 'package:dailycricket_nv/config/text_style.dart';
-import 'package:dailycricket_nv/screens/home/home_slider.dart';
+import 'package:dailycricket_nv/screens/home/view/home_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

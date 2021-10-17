@@ -26,7 +26,6 @@ class _DailySeriesUpdatesState extends State<DailySeriesUpdates> {
         Stack(
           overflow: Overflow.visible,
           children: <Widget>[
-
             CarouselSlider.builder(
                 options: CarouselOptions(
                   autoPlay: false,
@@ -132,8 +131,7 @@ class _DailySeriesUpdatesState extends State<DailySeriesUpdates> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
+  _mainCard(){
     return Container(
       height: MediaQuery.of(context).size.height - 180.h,
       child: ListView(
@@ -149,9 +147,13 @@ class _DailySeriesUpdatesState extends State<DailySeriesUpdates> {
           _trending(1),
           _popular(),
           _newsCard(3),
-
         ],
       ),
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _mainCard();
   }
 }
