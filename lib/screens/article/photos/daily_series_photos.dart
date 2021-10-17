@@ -11,45 +11,37 @@ class DailySeriesPhotos extends StatefulWidget {
 
 class _DailySeriesPhotosState extends State<DailySeriesPhotos> {
 
-  List<Widget> _listTile = <Widget>[
-    BackGroundTile(image: 'asset/image_asset/pic_1.jpg',),
-    BackGroundTile(image: 'asset/image_asset/pic_2.jpg',),
-    BackGroundTile(image: 'asset/image_asset/picture.png',),
-    BackGroundTile(image: 'asset/image_asset/picture_2.png',),
-    BackGroundTile(image: 'asset/image_asset/pic_1.jpg',),
-    BackGroundTile(image: 'asset/image_asset/pic_2.jpg',),
-    BackGroundTile(image: 'asset/image_asset/picture_2.png',),
-    BackGroundTile(image: 'asset/image_asset/pic_2.jpg',),
-    BackGroundTile(image: 'asset/image_asset/picture.png',),
-    BackGroundTile(image: 'asset/image_asset/picture_2.png',),
-
-  ];
-
-  List<StaggeredTile>  _cardTile = <StaggeredTile> [
-    StaggeredTile.count(6, 4),
-    StaggeredTile.count(2, 2),
-    StaggeredTile.count(2, 2),
-    StaggeredTile.count(2, 2),
-    StaggeredTile.count(4, 4),
-    StaggeredTile.count(2, 2),
-    StaggeredTile.count(2, 2),
-    StaggeredTile.count(2, 2),
-    StaggeredTile.count(2, 2),
-    StaggeredTile.count(2, 2),
+  List<String> _images = [
+    'asset/image_asset/pic_1.jpg',
+    'asset/image_asset/pic_2.jpg',
+    'asset/image_asset/picture.png',
+    'asset/image_asset/picture_2.png',
+    'asset/image_asset/pic_1.jpg',
+    'asset/image_asset/pic_2.jpg',
+    'asset/image_asset/picture_2.png',
+    'asset/image_asset/pic_2.jpg',
+    'asset/image_asset/picture.png',
+    'asset/image_asset/picture_2.png',
   ];
 
   _mainCard(){
     return Container(
       height: MediaQuery.of(context).size.height - 180.h,
       padding: EdgeInsets.symmetric(horizontal: 15.w),
-      child: StaggeredGridView.count(
-        crossAxisCount: 6,
-        staggeredTiles: _cardTile,
-        children: _listTile,
-        mainAxisSpacing: 6.0,
-        crossAxisSpacing: 6.0,
-
-      ),
+      child: StaggeredGridView.countBuilder(
+        crossAxisCount: 4,
+        itemCount: 8,
+        itemBuilder: (BuildContext context, int index) =>
+        new Container(
+          child: new Container(
+            child: Image.asset(_images[index], fit: BoxFit.fill,),
+          ),
+        ),
+        staggeredTileBuilder: (int index) =>
+        new StaggeredTile.count(2, index.isEven ? 2 : 1),
+        mainAxisSpacing: 4.0,
+        crossAxisSpacing: 4.0,
+      )
     );
   }
 
