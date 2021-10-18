@@ -1,24 +1,25 @@
 import 'package:dailycricket_nv/config/color_constants.dart';
 import 'package:dailycricket_nv/config/text_style.dart';
+import 'package:dailycricket_nv/screens/series/series_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'daily_series_photos.dart';
 
-class PhotoPage extends StatefulWidget {
-  const PhotoPage({Key? key}) : super(key: key);
+
+class AllSeries extends StatefulWidget {
+  const AllSeries({Key? key}) : super(key: key);
 
   @override
-  _PhotoPageState createState() => _PhotoPageState();
+  _AllSeriesState createState() => _AllSeriesState();
 }
 
-class _PhotoPageState extends State<PhotoPage> {
+class _AllSeriesState extends State<AllSeries> {
 
-  String _selected = 'daily_updates';
+  String _selected = 'current';
 
   _tabBar(){
     return Container(
-      height: 38.h,
-      margin: EdgeInsets.only(left: 17.w, right: 141.w, bottom: 11.h),
+      height: 38.h, width: 336.w,
+      margin: EdgeInsets.only(left: 17.w, right: 89.w, bottom: 11.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18.r),
         gradient: LinearGradient(
@@ -29,18 +30,24 @@ class _PhotoPageState extends State<PhotoPage> {
         ),
       ),
       child: Container(
+        width: 336.w,
         padding: EdgeInsets.fromLTRB(28.w, 10.h, 24.w, 11.h),
         child: Row(
           children: [
             InkWell(
-              onTap: ()=> _onTabClick(tabName: 'daily_updates'),
-              child: Text('daily updates'.toUpperCase(),
-                style: _tabItemStyle(tabName: 'daily_updates'),),),
+              onTap: ()=> _onTabClick(tabName: 'current'),
+              child: Text('current'.toUpperCase(),
+                style: _tabItemStyle(tabName: 'current'),),),
             Spacer(),
             InkWell(
-              onTap: ()=> _onTabClick(tabName: 'series_updates'),
-              child: Text('series updates'.toUpperCase(),
-                style: _tabItemStyle(tabName: 'series_updates'),),),
+              onTap: ()=> _onTabClick(tabName: 'upcoming'),
+              child: Text('upcoming'.toUpperCase(),
+                style: _tabItemStyle(tabName: 'upcoming'),),),
+            Spacer(),
+            InkWell(
+              onTap: ()=> _onTabClick(tabName: 'completed'),
+              child: Text('completed'.toUpperCase(),
+                style: _tabItemStyle(tabName: 'completed'),),),
           ],
         ),
       ),
@@ -62,8 +69,9 @@ class _PhotoPageState extends State<PhotoPage> {
   }
 
   _selectedView({String? tabName}){
-    if(_selected == 'daily_updates'){ return DailySeriesPhotos(); }
-    else if(_selected == 'series_updates'){ return DailySeriesPhotos(); }
+    if(_selected == 'current'){ return SeriesCard(); }
+    else if(_selected == 'upcoming'){ return SeriesCard(); }
+    else if(_selected == 'completed'){ return SeriesCard(); }
     else{ return Container(); }
   }
 

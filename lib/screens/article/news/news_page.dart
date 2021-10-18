@@ -18,33 +18,32 @@ class _NewsScreenState extends State<NewsScreen> {
 
   _tabBar(){
     return Container(
-      child: Stack(
-        children: [
-          Container(
-            height: 44.h, width: 280.w,
-            child: Image.asset('asset/image_asset/secondary_tab.png',
-              fit: BoxFit.cover,),
-          ),
-          Positioned(
-            child: Container(
-              width: 261.w,
-              padding: EdgeInsets.fromLTRB(28.w, 10.h, 24.w, 11.h),
-              child: Row(
-                children: [
-                  InkWell(
-                    onTap: ()=> _onTabClick(tabName: 'daily_updates'),
-                    child: Text('daily updates'.toUpperCase(),
-                      style: _tabItemStyle(tabName: 'daily_updates'),),),
-                  Spacer(),
-                  InkWell(
-                    onTap: ()=> _onTabClick(tabName: 'series_updates'),
-                    child: Text('series updates'.toUpperCase(),
-                      style: _tabItemStyle(tabName: 'series_updates'),),),
-                ],
-              ),
-            ),
-          )
-        ],
+      height: 38.h,
+      margin: EdgeInsets.only(left: 17.w, right: 141.w),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(18.r),
+        gradient: LinearGradient(
+          colors: [
+            PrimaryGreen,
+            PrimaryDeepGreen,
+          ],
+        ),
+      ),
+      child: Container(
+        padding: EdgeInsets.fromLTRB(28.w, 10.h, 24.w, 11.h),
+        child: Row(
+          children: [
+            InkWell(
+              onTap: ()=> _onTabClick(tabName: 'daily_updates'),
+              child: Text('daily updates'.toUpperCase(),
+                style: _tabItemStyle(tabName: 'daily_updates'),),),
+            Spacer(),
+            InkWell(
+              onTap: ()=> _onTabClick(tabName: 'series_updates'),
+              child: Text('series updates'.toUpperCase(),
+                style: _tabItemStyle(tabName: 'series_updates'),),),
+          ],
+        ),
       ),
     );
   }

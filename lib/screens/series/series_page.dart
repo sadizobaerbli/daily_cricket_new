@@ -1,22 +1,23 @@
 import 'package:dailycricket_nv/common_widgets/custom_appbar.dart';
 import 'package:dailycricket_nv/config/color_constants.dart';
 import 'package:dailycricket_nv/config/text_style.dart';
-import 'package:dailycricket_nv/screens/article/news/news_page.dart';
-import 'package:dailycricket_nv/screens/article/photos/photo_page.dart';
-import 'package:dailycricket_nv/screens/article/videos/video_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ArticlePage extends StatefulWidget {
-  const ArticlePage({Key? key}) : super(key: key);
+import 'all_series.dart';
+
+class SeriesPage extends StatefulWidget {
+  const SeriesPage({Key? key}) : super(key: key);
 
   @override
-  _ArticlePageState createState() => _ArticlePageState();
+  _SeriesPageState createState() => _SeriesPageState();
 }
 
-class _ArticlePageState extends State<ArticlePage> {
+class _SeriesPageState extends State<SeriesPage> {
 
-  String _selected = 'news';
+
+  String _selected = 'domestic';
 
   _onTabClick({String? tabName}){
     setState(() {
@@ -54,19 +55,14 @@ class _ArticlePageState extends State<ArticlePage> {
           child: Row(
             children: [
               InkWell(
-                onTap: ()=> _onTabClick(tabName: 'news'),
-                child: Text('news'.toUpperCase(),
-                  style: _tabItemStyle(tabName: 'news'),),),
-              SizedBox(width: 16.w,),
+                onTap: ()=> _onTabClick(tabName: 'domestic'),
+                child: Text('domestic'.toUpperCase(),
+                  style: _tabItemStyle(tabName: 'domestic'),),),
+              SizedBox(width: 26.w,),
               InkWell(
-                onTap: ()=> _onTabClick(tabName: 'photos'),
-                child: Text('photos'.toUpperCase(),
-                  style: _tabItemStyle(tabName: 'photos'),),),
-              SizedBox(width: 16.w,),
-              InkWell(
-                onTap: ()=> _onTabClick(tabName: 'videos'),
-                child: Text('videos'.toUpperCase(),
-                  style: _tabItemStyle(tabName: 'videos'),),),
+                onTap: ()=> _onTabClick(tabName: 'international'),
+                child: Text('international'.toUpperCase(),
+                  style: _tabItemStyle(tabName: 'international'),),),
             ],
           ),
         ),
@@ -75,13 +71,12 @@ class _ArticlePageState extends State<ArticlePage> {
   }
 
   _selectedView({String? tabName}){
-    if(_selected == 'news'){ return NewsScreen(); }
-    else if(_selected == 'photos'){ return PhotoPage(); }
-    else if(_selected == 'videos'){ return VideoPage(); }
+    if(_selected == 'domestic'){ return AllSeries(); }
+    else if(_selected == 'international'){ return AllSeries(); }
     else { return Container(); }
   }
 
-  _articlePage(){
+  _seriesPage(){
     return Scaffold(
       backgroundColor: BasicWhite,
       appBar: PreferredSize(
@@ -101,8 +96,9 @@ class _ArticlePageState extends State<ArticlePage> {
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
-    return _articlePage();
+    return _seriesPage();
   }
 }
