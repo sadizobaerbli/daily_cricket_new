@@ -1,4 +1,5 @@
 import 'package:dailycricket_nv/screens/article/article_page.dart';
+import 'package:dailycricket_nv/screens/fixture/fixture_page.dart';
 import 'package:dailycricket_nv/screens/home/view/home_screen.dart';
 import 'package:dailycricket_nv/screens/series/series_page.dart';
 import 'package:dailycricket_nv/screens/splash_screen.dart';
@@ -14,9 +15,9 @@ void main() {
     statusBarIconBrightness: Brightness.light, // status bar icons' color
     statusBarBrightness: Brightness.light, //navigation bar icons' color
     systemNavigationBarIconBrightness: Brightness.dark,
-  ));
+  ),);
 
-  runApp(MyApp());
+  runApp(MyApp(),);
 }
 
 class MyApp extends StatelessWidget {
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
       designSize: Size(414, 896),
       builder: () => MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/seriesPage',
+        initialRoute: '/fixturePage',
 
         routes: {
 
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
           '/homeScreen': (_) => HomeScreen(),
           '/articlePage': (_) => ArticlePage(),
           '/seriesPage': (_) => SeriesPage(),
+          '/fixturePage': (_) => FixturePage(),
 
         },
       ),
