@@ -7,7 +7,7 @@ TextStyle boldText({required double fontSize, Color color = BasicBlack, double l
   return TextStyle(
     fontSize: fontSize,
     fontFamily: 'SegoeUi',
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w900,
     color: color,
     height: lineHeight,
   );

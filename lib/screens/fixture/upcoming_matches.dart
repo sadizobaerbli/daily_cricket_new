@@ -14,7 +14,7 @@ class _UpcomingMatchesState extends State<UpcomingMatches> {
   _view(){
     return Container(
       width: 333.w,
-      margin: EdgeInsets.only(right: 15.w,bottom: 20.h, left: 15.w),
+      margin: EdgeInsets.only(right: 15.w,bottom: 8.h, left: 15.w, top: 8.h),
       decoration: BoxDecoration(
         color: BasicWhite,
         boxShadow: [
@@ -31,49 +31,23 @@ class _UpcomingMatchesState extends State<UpcomingMatches> {
       child: Container(
         padding: EdgeInsets.fromLTRB(9.w, 13.h, 9.w, 12.h),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
                 Container(
                   padding: EdgeInsets.only(left: 3.sp),
-                  child: Text('Stumps'.toUpperCase(),
-                    style: boldText(fontSize: 9.sp, color: PrimaryRed),
+                  child: Text('Thu,'.toUpperCase(),
+                    style: boldText(fontSize: 10.sp,),
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(left: 8.w, right: 5.sp),
-                  height: 4.h, width: 4.h,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Grey,
-                  ),
+                Text('2 sep,'.toUpperCase(),
+                  style: boldText(fontSize: 10.sp,),
                 ),
-                Text('3rd Test',
-                  style: boldText(fontSize: 9.sp,),
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 8.w, right: 5.sp),
-                  height: 4.h, width: 4.h,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Grey,
-                  ),
-                ),
-                Text('Leeds',
-                  style: boldText(fontSize: 9.sp, color: Grey),),
+                Text('4pm'.toUpperCase(),
+                  style: boldText(fontSize: 10.sp, color: PrimaryGreen),),
                 Spacer(),
                 ImageIcon(AssetImage('asset/icon_asset/pin.png'),size: 17.sp,color: BasicBlack,),
-                SizedBox(width: 11.w,),
-                Container(
-                  padding: EdgeInsets.fromLTRB(8.w, 4.h, 8.w, 5.h),
-                  margin: EdgeInsets.only(right: 11.w),
-                  decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(5.r)
-                  ),
-                  child: Text('Live'.toUpperCase(),
-                    style: boldText(fontSize: 8.sp, color: BasicWhite), ),
-                ),
               ],
             ),
             SizedBox(height: 16.h,),
@@ -143,7 +117,7 @@ class _UpcomingMatchesState extends State<UpcomingMatches> {
                     color: Grey,
                   ),
                 ),
-                Text('India lead by 120 runs',
+                Text('Match yet to begin',
                   style: boldText(fontSize: 9.sp,),
                 ),
                 Container(
@@ -160,35 +134,11 @@ class _UpcomingMatchesState extends State<UpcomingMatches> {
 
               ],
             ),
-            SizedBox(height: 10.h,),
-            Row(
-              children: [
-                Container(
-                  width: 146.w, height: 20.h,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(8.r)
-                  ),
-                  child: Center(
-                    child: Text('Schedule',
-                      style: semiBoldText(fontSize: 9.sp, color: Grey),),
-                  ),
-                ),
-                SizedBox(width: 6.h,),
-                Container(
-                  width: 146.w, height: 20.h,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(8.r)
-                  ),
-                  child: Center(
-                    child: Text('Report',
-                      style: semiBoldText(fontSize: 9.sp, color: Grey),),
-                  ),
-                ),
-
-              ],
+            SizedBox(height: 9.h,),
+            Text('La Manga Club Bottom Ground, Murcia',
+              style: boldText(fontSize: 12.sp,),
             ),
+            SizedBox(height: 10.h,),
           ],
         ),
       ),

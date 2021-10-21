@@ -16,7 +16,7 @@ class _FinishedMatchesState extends State<FinishedMatches> {
   _view(){
     return Container(
       width: 333.w,
-      margin: EdgeInsets.only(right: 15.w,bottom: 20.h, left: 15.w),
+      margin: EdgeInsets.only(right: 15.w,bottom: 8.h, left: 15.w, top: 8.h),
       decoration: BoxDecoration(
         color: BasicWhite,
         boxShadow: [
@@ -65,17 +65,7 @@ class _FinishedMatchesState extends State<FinishedMatches> {
                   style: boldText(fontSize: 9.sp, color: Grey),),
                 Spacer(),
                 ImageIcon(AssetImage('asset/icon_asset/pin.png'),size: 17.sp,color: BasicBlack,),
-                SizedBox(width: 11.w,),
-                Container(
-                  padding: EdgeInsets.fromLTRB(8.w, 4.h, 8.w, 5.h),
-                  margin: EdgeInsets.only(right: 11.w),
-                  decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(5.r)
-                  ),
-                  child: Text('Live'.toUpperCase(),
-                    style: boldText(fontSize: 8.sp, color: BasicWhite), ),
-                ),
+
               ],
             ),
             SizedBox(height: 16.h,),
@@ -135,7 +125,18 @@ class _FinishedMatchesState extends State<FinishedMatches> {
               children: [
                 SizedBox(width: 5.w,),
                 Text('Day 2',
-                  style: boldText(fontSize: 9.sp, color: Grey),
+                  style: boldText(fontSize: 10.sp, color: Grey),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 6.w, right: 3.sp),
+                  height: 4.h, width: 4.h,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Grey,
+                  ),
+                ),
+                Text('Bangladesh won by 120 runs',
+                  style: boldText(fontSize: 10.sp, color: PrimaryGreen),
                 ),
                 Container(
                   margin: EdgeInsets.only(left: 8.w, right: 5.sp),
@@ -145,52 +146,13 @@ class _FinishedMatchesState extends State<FinishedMatches> {
                     color: Grey,
                   ),
                 ),
-                Text('India lead by 120 runs',
-                  style: boldText(fontSize: 9.sp,),
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 14.w, right: 5.sp),
-                  height: 4.h, width: 4.h,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Grey,
-                  ),
-                ),
                 Text('CRR: 3.27',
-                  style: boldText(fontSize: 9.sp, color: Grey),
+                  style: boldText(fontSize: 10.sp, color: Grey),
                 ),
 
               ],
             ),
             SizedBox(height: 10.h,),
-            Row(
-              children: [
-                Container(
-                  width: 146.w, height: 20.h,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(8.r)
-                  ),
-                  child: Center(
-                    child: Text('Schedule',
-                      style: semiBoldText(fontSize: 9.sp, color: Grey),),
-                  ),
-                ),
-                SizedBox(width: 6.h,),
-                Container(
-                  width: 146.w, height: 20.h,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(8.r)
-                  ),
-                  child: Center(
-                    child: Text('Report',
-                      style: semiBoldText(fontSize: 9.sp, color: Grey),),
-                  ),
-                ),
-
-              ],
-            ),
           ],
         ),
       ),

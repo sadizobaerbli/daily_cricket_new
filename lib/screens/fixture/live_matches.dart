@@ -16,7 +16,7 @@ class _LiveMatchesState extends State<LiveMatches> {
   _view(){
     return Container(
       width: 333.w,
-      margin: EdgeInsets.only(right: 15.w,bottom: 20.h, left: 15.w),
+      margin: EdgeInsets.only(right: 15.w,bottom: 8.h, left: 15.w, top: 8.h),
       decoration: BoxDecoration(
         color: BasicWhite,
         boxShadow: [
@@ -121,7 +121,7 @@ class _LiveMatchesState extends State<LiveMatches> {
                 Text('IND',
                   style: boldText(fontSize: 14.sp),),
                 Spacer(),
-                Text('',
+                Text('(15.6 over)',
                   style: TextStyle(fontWeight: FontWeight.w800,
                       color: Colors.grey, fontSize: 11.sp),),
                 SizedBox(width: 21.w,),
@@ -163,34 +163,6 @@ class _LiveMatchesState extends State<LiveMatches> {
               ],
             ),
             SizedBox(height: 10.h,),
-            Row(
-              children: [
-                Container(
-                  width: 146.w, height: 20.h,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(8.r)
-                  ),
-                  child: Center(
-                    child: Text('Schedule',
-                      style: semiBoldText(fontSize: 9.sp, color: Grey),),
-                  ),
-                ),
-                SizedBox(width: 6.h,),
-                Container(
-                  width: 146.w, height: 20.h,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(8.r)
-                  ),
-                  child: Center(
-                    child: Text('Report',
-                      style: semiBoldText(fontSize: 9.sp, color: Grey),),
-                  ),
-                ),
-
-              ],
-            ),
           ],
         ),
       ),
