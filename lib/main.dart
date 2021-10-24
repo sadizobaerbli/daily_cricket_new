@@ -1,11 +1,12 @@
 import 'package:dailycricket_nv/screens/article/article_page.dart';
+import 'package:dailycricket_nv/screens/bottom_navigation_bar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:dailycricket_nv/screens/fixture/fixture_page.dart';
 import 'package:dailycricket_nv/screens/home/view/home_screen.dart';
 import 'package:dailycricket_nv/screens/series/series_page.dart';
 import 'package:dailycricket_nv/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
 
@@ -29,11 +30,12 @@ class MyApp extends StatelessWidget {
       designSize: Size(414, 896),
       builder: () => MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/fixturePage',
+        initialRoute: '/bottomNavigation',
 
         routes: {
 
           '/splashScreen': (_) => Splash(),
+          '/bottomNavigation': (_) => BottomNavigation(),
           '/homeScreen': (_) => HomeScreen(),
           '/articlePage': (_) => ArticlePage(),
           '/seriesPage': (_) => SeriesPage(),
