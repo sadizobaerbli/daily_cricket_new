@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:dailycricket_nv/common_widgets/custom_loader.dart';
 import 'package:dailycricket_nv/common_widgets/daily_updates.dart';
 import 'package:dailycricket_nv/common_widgets/editors_pick.dart';
 import 'package:dailycricket_nv/common_widgets/featured_videos.dart';
@@ -8,7 +9,11 @@ import 'package:dailycricket_nv/common_widgets/popular.dart';
 import 'package:dailycricket_nv/common_widgets/trending.dart';
 import 'package:dailycricket_nv/config/color_constants.dart';
 import 'package:dailycricket_nv/config/text_style.dart';
+import 'package:dailycricket_nv/screens/home/home_bloc/home_bloc.dart';
+import 'package:dailycricket_nv/screens/home/home_bloc/home_event.dart';
+import 'package:dailycricket_nv/screens/home/home_bloc/home_state.dart';
 import 'package:dailycricket_nv/screens/home/view/home_slider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,9 +31,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   bool isSwitched = false;
   bool isExpanded = true;
+  HomeBloc? homeBloc;
   List<int> item = [1,2,4,6];
   AutoScrollController? _autoScrollController;
-  final scrollDirection = Axis.vertical;
 
   bool get _isAppBarExpanded {
     return _autoScrollController!.hasClients &&
@@ -171,7 +176,40 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
 
             Positioned(
-              child: HomeSlider(),
+              child: BlocBuilder<HomeBloc, HomeState>(
+                  builder: (context, state) {
+                    if (state is HomeLoading) {
+                      return Center(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: BasicWhite,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Grey.withOpacity(0.2),
+                                spreadRadius: 3,
+                                blurRadius: 8,
+                                offset: Offset(0, 1), // changes position of shadow
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(12.r),
+                          ),
+                          height: 177.h, width: 333.w,
+                          child: Center(
+                            child: CustomLoader(),
+                          ),
+                        ),
+                      );
+                    } else if (state is HomeFailure) {
+                      return Container(
+                        height: 92.h, width: 414.w,
+                        child: Center(child: Text('${state.errorMessage}')),
+                      );
+                    } else if (state is HomeSuccess) {
+
+                      return HomeSlider(items: state.liveMatchesDataModel.response!.items,);
+                    }
+                    return Container();
+                  }),
             ),
 
           ],
@@ -351,7 +389,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
 
     _autoScrollController = AutoScrollController(
-      axis: scrollDirection,
+      axis: Axis.vertical,
       viewportBoundaryGetter: () =>
           Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
     )..addListener(() =>
@@ -361,6 +399,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ) : {} : isExpanded != true ? setState(() {isExpanded = true;}) : {},
       );
 
+    homeBloc = context.read<HomeBloc>();
+    homeBloc!.add(LiveMatchesEvent());
     super.initState();
   }
 

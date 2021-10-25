@@ -1,5 +1,8 @@
 import 'package:dailycricket_nv/screens/article/article_page.dart';
 import 'package:dailycricket_nv/screens/bottom_navigation_bar.dart';
+import 'package:dailycricket_nv/screens/home/home_bloc/home_bloc.dart';
+import 'package:dailycricket_nv/screens/home/network/home_repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:dailycricket_nv/screens/fixture/fixture_page.dart';
 import 'package:dailycricket_nv/screens/home/view/home_screen.dart';
@@ -18,7 +21,14 @@ void main() {
     systemNavigationBarIconBrightness: Brightness.dark,
   ),);
 
-  runApp(MyApp(),);
+  runApp(
+    MultiBlocProvider(
+      child: MyApp(),
+      providers: [
+        BlocProvider(create: (context) => HomeBloc(repository: HomeRepository(),),),
+      ],
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -30,7 +40,7 @@ class MyApp extends StatelessWidget {
       designSize: Size(414, 896),
       builder: () => MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/bottomNavigation',
+        initialRoute: '/splashScreen',
 
         routes: {
 

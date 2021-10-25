@@ -22,7 +22,7 @@ class _DailyUpdatesState extends State<DailyUpdates> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 117.h, width: 336.w,
+            width: 336.w,
             margin: EdgeInsets.only(top: 11.w),
             padding: EdgeInsets.fromLTRB(6.w, 6.h, 15.w, 10.h),
             decoration: BoxDecoration(
@@ -99,7 +99,7 @@ class _DailyUpdatesState extends State<DailyUpdates> {
             ),
           ),
           Container(
-            height: 46.h, width: 334.w,
+            width: 334.w,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(15.r),

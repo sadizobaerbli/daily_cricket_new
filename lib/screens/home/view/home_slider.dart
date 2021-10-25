@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dailycricket_nv/config/color_constants.dart';
 import 'package:dailycricket_nv/config/text_style.dart';
+import 'package:dailycricket_nv/screens/home/data_models/live_matches_data_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class HomeSlider extends StatefulWidget {
+  final List<Item>? items;
+  HomeSlider({this.items});
 
   @override
   _HomeSliderState createState() => _HomeSliderState();
@@ -20,8 +23,7 @@ class _HomeSliderState extends State<HomeSlider> {
 
   _slider(){
     return Stack(
-      overflow: Overflow.visible,
-      children: <Widget>[
+      clipBehavior: Clip.none, children: <Widget>[
 
         CarouselSlider.builder(
             options: CarouselOptions(
@@ -67,7 +69,7 @@ class _HomeSliderState extends State<HomeSlider> {
                           children: [
                             Container(
                               padding: EdgeInsets.only(left: 3.sp),
-                              child: Text('Stumps'.toUpperCase(),
+                              child: Text(widget.items![index].venue!.location!.toUpperCase(),
                                 style: boldText(fontSize: 9.sp, color: PrimaryRed),
                               ),
                             ),
@@ -79,7 +81,7 @@ class _HomeSliderState extends State<HomeSlider> {
                                 color: Grey,
                               ),
                             ),
-                            Text('3rd Test',
+                            Text('${widget.items![index].gameStateStr}',
                               style: boldText(fontSize: 9.sp,),
                             ),
                             Container(
@@ -102,7 +104,7 @@ class _HomeSliderState extends State<HomeSlider> {
                                   color: Colors.red,
                                   borderRadius: BorderRadius.circular(5.r)
                               ),
-                              child: Text('Live'.toUpperCase(),
+                              child: Text('${widget.items![index].statusStr}'.toUpperCase(),
                                 style: boldText(fontSize: 8.sp, color: BasicWhite), ),
                             ),
                           ],
@@ -115,20 +117,20 @@ class _HomeSliderState extends State<HomeSlider> {
                               height: 29.h, width: 29.w,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(50.r),
-                                child: Image.asset('asset/image_asset/bd_flag.png',
+                                child: Image.network('${widget.items![index].teama!.logoUrl}',
                                   fit: BoxFit.fill,),
                               ),
                             ),
 
                             SizedBox(width: 12.w,),
-                            Text('IND',
+                            Text(widget.items![index].teama!.name!.substring(0,3),
                               style: boldText(fontSize: 14.sp),),
                             Spacer(),
-                            Text('',
+                            Text(widget.items![index].teama!.overs ?? "",
                               style: TextStyle(fontWeight: FontWeight.w800,
                                   color: Colors.grey, fontSize: 11.sp),),
                             SizedBox(width: 21.w,),
-                            Text('212/8',
+                            Text(widget.items![index].teama!.scores ?? "",
                               style: boldText(fontSize: 16.sp),),
                             SizedBox(width: 7.w,),
                           ],
@@ -141,20 +143,20 @@ class _HomeSliderState extends State<HomeSlider> {
                               height: 29.h, width: 29.w,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(50.r),
-                                child: Image.asset('asset/image_asset/bd_flag.png',
+                                child: Image.network(widget.items![index].teamb!.logoUrl!,
                                   fit: BoxFit.fill,),
                               ),
                             ),
 
                             SizedBox(width: 12.w,),
-                            Text('IND',
+                            Text(widget.items![index].teamb!.name!.substring(0,3),
                               style: boldText(fontSize: 14.sp),),
                             Spacer(),
-                            Text('',
+                            Text(widget.items![index].teamb!.overs ?? "",
                               style: TextStyle(fontWeight: FontWeight.w800,
                                   color: Colors.grey, fontSize: 11.sp),),
                             SizedBox(width: 21.w,),
-                            Text('212/8',
+                            Text(widget.items![index].teamb!.scores ?? "",
                               style: boldText(fontSize: 16.sp),),
                             SizedBox(width: 7.w,),
                           ],
@@ -163,7 +165,7 @@ class _HomeSliderState extends State<HomeSlider> {
                         Row(
                           children: [
                             SizedBox(width: 5.w,),
-                            Text('Day 2',
+                            Text(widget.items![index].shortTitle ?? "",
                               style: boldText(fontSize: 9.sp, color: Grey),
                             ),
                             Container(
@@ -174,7 +176,7 @@ class _HomeSliderState extends State<HomeSlider> {
                                 color: Grey,
                               ),
                             ),
-                            Text('India lead by 120 runs',
+                            Text(widget.items![index].shortTitle!,
                               style: boldText(fontSize: 9.sp,),
                             ),
                             Container(
