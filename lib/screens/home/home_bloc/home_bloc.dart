@@ -17,7 +17,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     if (event is LiveMatchesEvent) {
 
-      if (currentState is HomeInitial) {
+      if(currentState is HomeInitial) {
         yield HomeLoading();
         repository = HomeRepository();
 
@@ -36,5 +36,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       }
 
     }
+
   }
 }

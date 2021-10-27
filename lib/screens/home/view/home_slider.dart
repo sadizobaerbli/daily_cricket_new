@@ -19,9 +19,10 @@ class HomeSlider extends StatefulWidget {
 class _HomeSliderState extends State<HomeSlider> {
 
   int _current = 0;
-  List<int> item = [1,2,4];
 
   _slider(){
+
+
     return Stack(
       clipBehavior: Clip.none, children: <Widget>[
 
@@ -40,8 +41,14 @@ class _HomeSliderState extends State<HomeSlider> {
               },
             ),
 
-            itemCount: 3,
+            itemCount: widget.items!.length,
             itemBuilder: (BuildContext context, int index, int realIndex) {
+
+              String teamAOvers = widget.items![index].teama!.overs ?? "";
+              teamAOvers = teamAOvers != "" ? "(" + teamAOvers + " ov)":  "";
+
+              String teamBOvers = widget.items![index].teamb!.overs ?? "";
+              teamBOvers = teamBOvers != "" ? "(" + teamBOvers + " ov)":  "";
 
               return InkWell(
                 onTap:() {},
@@ -69,8 +76,13 @@ class _HomeSliderState extends State<HomeSlider> {
                           children: [
                             Container(
                               padding: EdgeInsets.only(left: 3.sp),
-                              child: Text(widget.items![index].venue!.location!.toUpperCase(),
-                                style: boldText(fontSize: 9.sp, color: PrimaryRed),
+                              child: Text(
+                                widget.items![index].gameStateStr!.
+                                toUpperCase(),
+                                style: boldText(
+                                    fontSize: 9.sp,
+                                    color: PrimaryRed,
+                                ),
                               ),
                             ),
                             Container(
@@ -81,7 +93,7 @@ class _HomeSliderState extends State<HomeSlider> {
                                 color: Grey,
                               ),
                             ),
-                            Text('${widget.items![index].gameStateStr}',
+                            Text(widget.items![index].competition!.abbr ?? "",
                               style: boldText(fontSize: 9.sp,),
                             ),
                             Container(
@@ -92,10 +104,18 @@ class _HomeSliderState extends State<HomeSlider> {
                                 color: Grey,
                               ),
                             ),
-                            Text('Leeds',
-                              style: boldText(fontSize: 9.sp, color: Grey),),
+                            Text(widget.items![index].venue!.location ?? "",
+                              style: boldText(
+                                  fontSize: 9.sp,
+                                color: Grey,
+                              ),
+                            ),
                             Spacer(),
-                            ImageIcon(AssetImage('asset/icon_asset/pin.png'),size: 17.sp,color: BasicBlack,),
+                            ImageIcon(
+                              AssetImage('asset/icon_asset/pin.png'),
+                              size: 17.sp,
+                              color: BasicBlack,
+                            ),
                             SizedBox(width: 11.w,),
                             Container(
                               padding: EdgeInsets.fromLTRB(8.w, 4.h, 8.w, 5.h),
@@ -104,8 +124,13 @@ class _HomeSliderState extends State<HomeSlider> {
                                   color: Colors.red,
                                   borderRadius: BorderRadius.circular(5.r)
                               ),
-                              child: Text('${widget.items![index].statusStr}'.toUpperCase(),
-                                style: boldText(fontSize: 8.sp, color: BasicWhite), ),
+                              child: Text(
+                                widget.items![index].statusStr!.toUpperCase(),
+                                style: boldText(
+                                    fontSize: 8.sp,
+                                    color: BasicWhite,
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -117,21 +142,30 @@ class _HomeSliderState extends State<HomeSlider> {
                               height: 29.h, width: 29.w,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(50.r),
-                                child: Image.network('${widget.items![index].teama!.logoUrl}',
-                                  fit: BoxFit.fill,),
+                                child: Image.network(
+                                  widget.items![index].teama!.logoUrl ?? "",
+                                  fit: BoxFit.fill,
+                                ),
                               ),
                             ),
 
                             SizedBox(width: 12.w,),
-                            Text(widget.items![index].teama!.name!.substring(0,3),
-                              style: boldText(fontSize: 14.sp),),
+                            Text(
+                              widget.items![index].teama!.name!.
+                              substring(0,3).toUpperCase(),
+                              style: boldText(fontSize: 14.sp,
+                              ),
+                            ),
                             Spacer(),
-                            Text(widget.items![index].teama!.overs ?? "",
+                            Text(teamAOvers,
                               style: TextStyle(fontWeight: FontWeight.w800,
-                                  color: Colors.grey, fontSize: 11.sp),),
+                                  color: Colors.grey, fontSize: 11.sp,
+                              ),
+                            ),
                             SizedBox(width: 21.w,),
                             Text(widget.items![index].teama!.scores ?? "",
-                              style: boldText(fontSize: 16.sp),),
+                              style: boldText(fontSize: 16.sp),
+                            ),
                             SizedBox(width: 7.w,),
                           ],
                         ),
@@ -143,21 +177,28 @@ class _HomeSliderState extends State<HomeSlider> {
                               height: 29.h, width: 29.w,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(50.r),
-                                child: Image.network(widget.items![index].teamb!.logoUrl!,
+                                child: Image.network(
+                                  widget.items![index].teamb!.logoUrl ?? "",
                                   fit: BoxFit.fill,),
                               ),
                             ),
 
                             SizedBox(width: 12.w,),
-                            Text(widget.items![index].teamb!.name!.substring(0,3),
-                              style: boldText(fontSize: 14.sp),),
+                            Text(
+                              widget.items![index].teamb!.name!.
+                              substring(0,3).toUpperCase(),
+                              style: boldText(fontSize: 14.sp),
+                            ),
                             Spacer(),
-                            Text(widget.items![index].teamb!.overs ?? "",
+                            Text(teamBOvers,
                               style: TextStyle(fontWeight: FontWeight.w800,
-                                  color: Colors.grey, fontSize: 11.sp),),
+                                  color: Colors.grey, fontSize: 11.sp,
+                              ),
+                            ),
                             SizedBox(width: 21.w,),
                             Text(widget.items![index].teamb!.scores ?? "",
-                              style: boldText(fontSize: 16.sp),),
+                              style: boldText(fontSize: 16.sp),
+                            ),
                             SizedBox(width: 7.w,),
                           ],
                         ),
@@ -165,7 +206,7 @@ class _HomeSliderState extends State<HomeSlider> {
                         Row(
                           children: [
                             SizedBox(width: 5.w,),
-                            Text(widget.items![index].shortTitle ?? "",
+                            Text(widget.items![index].statusNote!.split("-")[1],
                               style: boldText(fontSize: 9.sp, color: Grey),
                             ),
                             Container(
@@ -176,7 +217,7 @@ class _HomeSliderState extends State<HomeSlider> {
                                 color: Grey,
                               ),
                             ),
-                            Text(widget.items![index].shortTitle!,
+                            Text(widget.items![index].statusNote!.split("-")[2],
                               style: boldText(fontSize: 9.sp,),
                             ),
                             Container(
@@ -187,7 +228,7 @@ class _HomeSliderState extends State<HomeSlider> {
                                 color: Grey,
                               ),
                             ),
-                            Text('CRR: 3.27',
+                            Text('CRR: ',
                               style: boldText(fontSize: 9.sp, color: Grey),
                             ),
 
@@ -204,7 +245,9 @@ class _HomeSliderState extends State<HomeSlider> {
                               ),
                               child: Center(
                                 child: Text('Schedule',
-                                  style: semiBoldText(fontSize: 9.sp, color: Grey),),
+                                  style: semiBoldText(
+                                      fontSize: 9.sp, color: Grey),
+                                ),
                               ),
                             ),
                             SizedBox(width: 6.h,),
@@ -216,10 +259,12 @@ class _HomeSliderState extends State<HomeSlider> {
                               ),
                               child: Center(
                                 child: Text('Report',
-                                  style: semiBoldText(fontSize: 9.sp, color: Grey),),
+                                  style: semiBoldText(
+                                      fontSize: 9.sp,
+                                      color: Grey),
+                                ),
                               ),
                             ),
-
                           ],
                         ),
                       ],
@@ -235,15 +280,16 @@ class _HomeSliderState extends State<HomeSlider> {
             alignment: Alignment.bottomCenter,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: item.map((url) {
-                int index = item.indexOf(url);
+              children: widget.items!.map((url) {
+                int index = widget.items!.indexOf(url);
                 return Container(
                   margin: EdgeInsets.only(right: 4),
                   width: 8.0,
                   height: 8.0,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: _current == index ? PrimaryGreen : PrimaryGreen.withOpacity(.3),
+                    color: _current == index ?
+                    PrimaryGreen : PrimaryGreen.withOpacity(.3),
                   ),
                 );
               }).toList(),
