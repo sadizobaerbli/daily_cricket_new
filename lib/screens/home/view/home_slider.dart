@@ -93,7 +93,8 @@ class _HomeSliderState extends State<HomeSlider> {
                                 color: Grey,
                               ),
                             ),
-                            Text(widget.items![index].competition!.abbr ?? "",
+                            Text(widget.items![index].competition!.abbr!
+                                .toUpperCase(),
                               style: boldText(fontSize: 9.sp,),
                             ),
                             Container(
@@ -104,7 +105,8 @@ class _HomeSliderState extends State<HomeSlider> {
                                 color: Grey,
                               ),
                             ),
-                            Text(widget.items![index].venue!.location ?? "",
+                            Text(widget.items![index].venue!.location!
+                                .toUpperCase(),
                               style: boldText(
                                   fontSize: 9.sp,
                                 color: Grey,
@@ -206,10 +208,10 @@ class _HomeSliderState extends State<HomeSlider> {
                         Row(
                           children: [
                             SizedBox(width: 5.w,),
-                            Text(widget.items![index].statusNote!.split("-")[1],
+                            Text(widget.items![index].statusNote ?? "",
                               style: boldText(fontSize: 9.sp, color: Grey),
                             ),
-                            Container(
+                            /*Container(
                               margin: EdgeInsets.only(left: 8.w, right: 5.sp),
                               height: 4.h, width: 4.h,
                               decoration: BoxDecoration(
@@ -217,7 +219,7 @@ class _HomeSliderState extends State<HomeSlider> {
                                 color: Grey,
                               ),
                             ),
-                            Text(widget.items![index].statusNote!.split("-")[2],
+                            Text('',
                               style: boldText(fontSize: 9.sp,),
                             ),
                             Container(
@@ -228,9 +230,9 @@ class _HomeSliderState extends State<HomeSlider> {
                                 color: Grey,
                               ),
                             ),
-                            Text('CRR: ',
+                            Text('',
                               style: boldText(fontSize: 9.sp, color: Grey),
-                            ),
+                            ),*/
 
                           ],
                         ),

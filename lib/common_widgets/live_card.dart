@@ -17,7 +17,7 @@ class _LiveCardState extends State<LiveCard> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.only(right: 15.w),
+      margin: EdgeInsets.only(left: 15.w, right: 15.sp),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

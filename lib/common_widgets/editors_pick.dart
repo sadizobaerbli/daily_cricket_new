@@ -1,12 +1,12 @@
 import 'package:dailycricket_nv/config/color_constants.dart';
-import 'package:dailycricket_nv/config/strings.dart';
 import 'package:dailycricket_nv/config/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class EditorsPick extends StatefulWidget {
-  const EditorsPick({Key? key}) : super(key: key);
+  final String? url, title, date;
+  const EditorsPick({Key? key, this.url, this.title, this.date}) : super(key: key);
 
   @override
   _EditorsPickState createState() => _EditorsPickState();
@@ -17,7 +17,7 @@ class _EditorsPickState extends State<EditorsPick> {
   Widget build(BuildContext context) {
     return Container(
       width: 251.w,
-      margin: EdgeInsets.only(right: 15.w),
+      margin: EdgeInsets.only(left: 15.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -27,7 +27,7 @@ class _EditorsPickState extends State<EditorsPick> {
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(15.r),
                 topRight: Radius.circular(15.r),),
-              child: Image.asset('asset/image_asset/pic_2.jpg',
+              child: Image.network(widget.url!,
                 fit: BoxFit.fill,),
             ),
           ),
@@ -44,12 +44,12 @@ class _EditorsPickState extends State<EditorsPick> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(titleText,
+                Text(widget.title ?? " ",
                   maxLines: 1,
                   style: boldText(fontSize: 11.sp, lineHeight: 15.sp/11.sp),
                 ),
                 SizedBox(height: 2.sp,),
-                Text('3 months ago',
+                Text(widget.date ?? " ",
                   maxLines: 1,
                   style: semiBoldText(fontSize: 6.sp, color: Grey),
                 ),

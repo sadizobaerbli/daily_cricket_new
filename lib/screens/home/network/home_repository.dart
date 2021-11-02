@@ -26,4 +26,42 @@ class HomeRepository {
     return response;
   }
 
+  Future getFeaturedVideosData() async {
+
+    final response = await dio.get(
+      "$featuredVideosUrl",
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Vary': 'Accept',
+        },
+        followRedirects: false,
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+
+    return response;
+  }
+
+  Future getEditorsPickData() async {
+
+    final response = await dio.get(
+      "$dailyUpdatesUrl",
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Vary': 'Accept',
+        },
+        followRedirects: false,
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+
+    return response;
+  }
+
 }

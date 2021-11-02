@@ -1,5 +1,7 @@
 import 'package:dailycricket_nv/screens/article/article_page.dart';
 import 'package:dailycricket_nv/screens/bottom_navigation_bar.dart';
+import 'package:dailycricket_nv/screens/home/daily_updates_bloc/editors_pick_bloc.dart';
+import 'package:dailycricket_nv/screens/home/featured_videos_bloc/featured_videos_bloc.dart';
 import 'package:dailycricket_nv/screens/home/home_bloc/home_bloc.dart';
 import 'package:dailycricket_nv/screens/home/network/home_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,6 +28,8 @@ void main() {
       child: MyApp(),
       providers: [
         BlocProvider(create: (context) => HomeBloc(repository: HomeRepository(),),),
+        BlocProvider(create: (context) => FeaturedVideosBloc(repository: HomeRepository(),),),
+        BlocProvider(create: (context) => EditorsPickBloc(repository: HomeRepository(),),),
       ],
     ),
   );

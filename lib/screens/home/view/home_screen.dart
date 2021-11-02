@@ -9,6 +9,12 @@ import 'package:dailycricket_nv/common_widgets/popular.dart';
 import 'package:dailycricket_nv/common_widgets/trending.dart';
 import 'package:dailycricket_nv/config/color_constants.dart';
 import 'package:dailycricket_nv/config/text_style.dart';
+import 'package:dailycricket_nv/screens/home/daily_updates_bloc/editors_pick_bloc.dart';
+import 'package:dailycricket_nv/screens/home/daily_updates_bloc/editors_pick_event.dart';
+import 'package:dailycricket_nv/screens/home/daily_updates_bloc/editors_pick_state.dart';
+import 'package:dailycricket_nv/screens/home/featured_videos_bloc/featured_videos_bloc.dart';
+import 'package:dailycricket_nv/screens/home/featured_videos_bloc/featured_videos_event.dart';
+import 'package:dailycricket_nv/screens/home/featured_videos_bloc/featured_videos_state.dart';
 import 'package:dailycricket_nv/screens/home/home_bloc/home_bloc.dart';
 import 'package:dailycricket_nv/screens/home/home_bloc/home_event.dart';
 import 'package:dailycricket_nv/screens/home/home_bloc/home_state.dart';
@@ -32,6 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isSwitched = false;
   bool isExpanded = true;
   HomeBloc? homeBloc;
+  FeaturedVideosBloc? featuredVideosBloc;
+  EditorsPickBloc? editorsPickBloc;
   List<int> item = [1,2,4,6];
   AutoScrollController? _autoScrollController;
 
@@ -236,14 +244,34 @@ class _HomeScreenState extends State<HomeScreen> {
           height: 13.h,
         ),
         Container(
-          height: 180,
-          child: ListView.builder(
-              itemCount: 3,
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              physics: AlwaysScrollableScrollPhysics(),
-              itemBuilder: (context, i){
-                return FeaturedVideos();
+          height: 160,
+          child: BlocBuilder<FeaturedVideosBloc, FeaturedVideosState>(
+              builder: (context, state) {
+                if (state is FeaturedVideosLoading) {
+                  return Center(
+                    child: CustomLoader(),
+                  );
+                } else if (state is FeaturedVideosFailure) {
+                  return Container(
+                    height: 92.h, width: 414.w,
+                    child: Center(child: Text('${state.errorMessage}')),
+                  );
+                } else if (state is FeaturedVideosSuccess) {
+
+                  return ListView.builder(
+                      itemCount: state.featuredVideosModel.data!.length,
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      physics: AlwaysScrollableScrollPhysics(),
+                      itemBuilder: (context, i){
+                        return FeaturedVideos(
+                          title: state.featuredVideosModel.data![i].title,
+                          url: state.featuredVideosModel.data![i].url,
+                          createdAt: state.featuredVideosModel.data![i].createdAt,
+                        );
+                      });
+                }
+                return Container();
               }),
         ),
         SizedBox(
@@ -268,23 +296,44 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         Container(
           height: 168.h,
-          child: ListView.builder(
-              itemCount: 3,
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              physics: AlwaysScrollableScrollPhysics(),
-              itemBuilder: (context, i){
-                return EditorsPick();
+          child: BlocBuilder<EditorsPickBloc, EditorsPickState>(
+              builder: (context, state) {
+                if (state is EditorsPickLoading) {
+                  return Center(
+                    child: CustomLoader(),
+                  );
+                } else if (state is EditorsPickFailure) {
+                  return Container(
+                    height: 92.h, width: 414.w,
+                    child: Center(child: Text('${state.errorMessage}')),
+                  );
+                } else if (state is EditorsPickSuccess) {
+
+                  return ListView.builder(
+                      itemCount: state.editorsPickModel.data!.length,
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      physics: AlwaysScrollableScrollPhysics(),
+                      itemBuilder: (context, i){
+                        return EditorsPick(
+                          url: state.editorsPickModel.data![i].image,
+                          title: state.editorsPickModel.data![i].title,
+                          date: state.editorsPickModel.data![i].date,
+                        );
+                      });
+                }
+                return Container();
               }),
         ),
         SizedBox(
           height: 20.h,
         ),
+
       ],
     );
   }
 
-  _dailyUpdates(){
+  _dailyUpdatesPick(){
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -296,10 +345,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         SizedBox(
-          height: 13.h,
+          height: 2.h,
         ),
         Container(
-          height: 164.h,
+          height: 175.h,
           child: ListView.builder(
               itemCount: 3,
               scrollDirection: Axis.horizontal,
@@ -349,6 +398,7 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         Row(
           children: [
+            SizedBox(width: 15.w,),
             Trending(),
             Spacer(),
             Trending(),
@@ -400,7 +450,11 @@ class _HomeScreenState extends State<HomeScreen> {
       );
 
     homeBloc = context.read<HomeBloc>();
+    featuredVideosBloc = context.read<FeaturedVideosBloc>();
+    editorsPickBloc = context.read<EditorsPickBloc>();
     homeBloc!.add(LiveMatchesEvent());
+    featuredVideosBloc!.add(FeaturedVideoEvent());
+    editorsPickBloc!.add(EditorPickEvent());
     super.initState();
   }
 
@@ -422,14 +476,14 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             _slider(),
             Container(
-              padding: EdgeInsets.only(top: 26.h, left: 15.w, bottom: 81.h),
+              padding: EdgeInsets.only(top: 26.h, left: 0.w, bottom: 81.h),
               decoration: _containerDecoration(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _featuredVideos(),
                   _editorsPick(),
-                  _dailyUpdates(),
+                  _dailyUpdatesPick(),
                   _trending(),
                   _liveCard(),
                   _newsCard(),

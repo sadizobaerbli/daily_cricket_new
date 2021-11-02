@@ -19,7 +19,7 @@ class _NewsCardState extends State<NewsCard> {
       width: 384.w,
       child: Container(
         height: 124.h, width: 384.w,
-        margin: EdgeInsets.only(right: 15.sp, bottom: 13.sp),
+        margin: EdgeInsets.only(left: 15.sp, bottom: 13.sp, right: 15.sp),
         padding: EdgeInsets.fromLTRB(10.w, 8.h, 12.w, 8.h),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(13.r),

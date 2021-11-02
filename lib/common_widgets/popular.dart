@@ -19,7 +19,7 @@ class _PopularState extends State<Popular> {
 
         Container(
           height: 251.h, width: double.infinity,
-          margin: EdgeInsets.only(right: 15.w),
+          margin: EdgeInsets.only(right: 15.w, left: 15.w),
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(

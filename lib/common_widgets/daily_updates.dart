@@ -17,14 +17,14 @@ class _DailyUpdatesState extends State<DailyUpdates> {
   Widget build(BuildContext context) {
     return Container(
       width: 336.w,
-      margin: EdgeInsets.only(right: 15.w),
+      margin: EdgeInsets.only(left: 15.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             width: 336.w,
             margin: EdgeInsets.only(top: 11.w),
-            padding: EdgeInsets.fromLTRB(6.w, 6.h, 15.w, 10.h),
+            padding: EdgeInsets.fromLTRB(8.w, 8.h, 15.w, 10.h),
             decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
@@ -99,7 +99,7 @@ class _DailyUpdatesState extends State<DailyUpdates> {
             ),
           ),
           Container(
-            width: 334.w,
+            width: 336.w, height: 44.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(15.r),
