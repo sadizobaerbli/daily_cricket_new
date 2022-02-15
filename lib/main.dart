@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
       designSize: Size(414, 896),
       builder: () => MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: '/splashScreen',
+        initialRoute: '/bottomNavigation',
 
         routes: {
 

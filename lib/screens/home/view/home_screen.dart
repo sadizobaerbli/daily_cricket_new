@@ -19,6 +19,7 @@ import 'package:dailycricket_nv/screens/home/home_bloc/home_bloc.dart';
 import 'package:dailycricket_nv/screens/home/home_bloc/home_event.dart';
 import 'package:dailycricket_nv/screens/home/home_bloc/home_state.dart';
 import 'package:dailycricket_nv/screens/home/view/home_slider.dart';
+import 'package:dailycricket_nv/screens/home/view/slider_skeleton.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -187,26 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: BlocBuilder<HomeBloc, HomeState>(
                   builder: (context, state) {
                     if (state is HomeLoading) {
-                      return Center(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: BasicWhite,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Grey.withOpacity(0.2),
-                                spreadRadius: 3,
-                                blurRadius: 8,
-                                offset: Offset(0, 1), // changes position of shadow
-                              ),
-                            ],
-                            borderRadius: BorderRadius.circular(12.r),
-                          ),
-                          height: 177.h, width: 333.w,
-                          child: Center(
-                            child: CustomLoader(),
-                          ),
-                        ),
-                      );
+                      return HomeSliderSkeleton();
                     } else if (state is HomeFailure) {
                       return Container(
                         height: 92.h, width: 414.w,
@@ -244,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
           height: 13.h,
         ),
         Container(
-          height: 160,
+          height: 164,
           child: BlocBuilder<FeaturedVideosBloc, FeaturedVideosState>(
               builder: (context, state) {
                 if (state is FeaturedVideosLoading) {
