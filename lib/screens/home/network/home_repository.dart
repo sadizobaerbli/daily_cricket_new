@@ -48,7 +48,7 @@ class HomeRepository {
   Future getEditorsPickData() async {
 
     final response = await dio.get(
-      "$dailyUpdatesUrl",
+      "$editorsPickUrl",
       options: Options(
         headers: {
           'Content-Type': 'application/json',

@@ -16,13 +16,13 @@ class _TrendingState extends State<Trending> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-
         Container(
           height: 187.h, width: 190.w,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(12.r),
             child: Image.asset('asset/image_asset/pic_1.jpg',
-              fit: BoxFit.fill,),
+              fit: BoxFit.fill,
+            ),
           ),
         ),
         Positioned(
@@ -38,7 +38,8 @@ class _TrendingState extends State<Trending> {
                     maxLines: 2,
                     style: boldText(
                         fontSize: 15.sp, color: BasicWhite,
-                        lineHeight: 20.sp/15.sp),
+                        lineHeight: 20.sp/15.sp,
+                    ),
                   ),
                 ),
                 Container(
@@ -51,8 +52,7 @@ class _TrendingState extends State<Trending> {
               ],
             ),
           ),
-        )
-
+        ),
       ],
     );
   }

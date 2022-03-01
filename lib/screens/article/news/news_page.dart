@@ -19,7 +19,7 @@ class _NewsScreenState extends State<NewsScreen> {
   _tabBar(){
     return Container(
       height: 38.h,
-      margin: EdgeInsets.only(left: 17.w, right: 141.w),
+      margin: EdgeInsets.only(left: 30.w, right: 121.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18.r),
         gradient: LinearGradient(

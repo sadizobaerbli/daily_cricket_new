@@ -2,9 +2,15 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dailycricket_nv/config/color_constants.dart';
 import 'package:dailycricket_nv/config/text_style.dart';
 import 'package:dailycricket_nv/screens/home/data_models/live_matches_data_model.dart';
+import 'package:dailycricket_nv/screens/home/provider/home_provider.dart';
+import 'package:dailycricket_nv/screens/match_details/match_details_bloc/match_details_bloc.dart';
+import 'package:dailycricket_nv/screens/match_details/match_details_bloc/match_details_event.dart';
+import 'package:dailycricket_nv/screens/match_details/model/slider_model.dart';
+import 'package:dailycricket_nv/screens/match_details/view/match_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 
 
@@ -32,6 +38,7 @@ class _HomeSliderState extends State<HomeSlider> {
               enableInfiniteScroll: false,
               height: 200.h,
               viewportFraction: .8,
+              initialPage: Provider.of<HomeProvider>(context, listen: false).sliderPinnedIndex,
               onPageChanged: (index, reason) {
 
                 setState(() {
@@ -51,17 +58,34 @@ class _HomeSliderState extends State<HomeSlider> {
               teamBOvers = teamBOvers != "" ? "(" + teamBOvers + " ov)":  "";
 
               return InkWell(
-                onTap:() {},
+                onTap:() {
+                  context.read<MatchDetailsBloc>().add(MatchDetailsDataEvent(matchId: widget.items![index].matchId!),);
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> MatchDetails(sliderModel: SliderModel(
+                    gameStateStr: widget.items![index].gameStateStr,
+                    competitionAbbr: widget.items![index].competition!.abbr,
+                    venueLocation: widget.items![index].venue!.location,
+                    gameStr: widget.items![index].statusStr,
+                    teamALogoUrl: widget.items![index].teama!.logoUrl,
+                    teamAName: widget.items![index].teama!.name,
+                    teamAScore: widget.items![index].teama!.scores,
+                    teamAOver: teamAOvers,
+                    teamBLogoUrl: widget.items![index].teamb!.logoUrl,
+                    teamBName: widget.items![index].teamb!.name,
+                    teamBScore: widget.items![index].teamb!.scores,
+                    teamBOver: teamBOvers,
+                    statusNote: widget.items![index].statusNote,
+                  ),),),);
+                },
                 child: Container(
                   width: 333.w,
-                  margin: EdgeInsets.only(right: 15.w,bottom: 20.h),
+                  margin: EdgeInsets.only(right: 15.w,bottom: 20.h,),
                   decoration: BoxDecoration(
                     color: BasicWhite,
                     boxShadow: [
                       BoxShadow(
                         color: Grey.withOpacity(0.2),
-                        spreadRadius: 3,
-                        blurRadius: 8,
+                        spreadRadius: 1,
+                        blurRadius: 2,
                         offset: Offset(0, 1), // changes position of shadow
                       ),
                     ],
@@ -113,10 +137,15 @@ class _HomeSliderState extends State<HomeSlider> {
                               ),
                             ),
                             Spacer(),
-                            ImageIcon(
-                              AssetImage('asset/icon_asset/pin.png'),
-                              size: 17.sp,
-                              color: BasicBlack,
+                            InkWell(
+                              onTap: (){
+                                Provider.of<HomeProvider>(context, listen: false).setSliderPinnedIndex(index);
+                              },
+                              child: ImageIcon(
+                                AssetImage('asset/icon_asset/pin.png'),
+                                size: 17.sp,
+                                color: Provider.of<HomeProvider>(context).sliderPinnedIndex == index ? BasicBlack : Grey,
+                              ),
                             ),
                             SizedBox(width: 11.w,),
                             Container(

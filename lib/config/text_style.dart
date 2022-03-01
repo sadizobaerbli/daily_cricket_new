@@ -1,6 +1,7 @@
-
 import 'package:flutter/cupertino.dart';
 import 'color_constants.dart';
+
+
 
 TextStyle boldText({required double fontSize, Color color = BasicBlack, double lineHeight = 1.0}){
 

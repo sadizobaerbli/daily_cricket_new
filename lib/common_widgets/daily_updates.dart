@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DailyUpdates extends StatefulWidget {
-  const DailyUpdates({Key? key}) : super(key: key);
+  final double initialPaddingLeft;
+  const DailyUpdates({Key? key, this.initialPaddingLeft = 0}) : super(key: key);
 
   @override
   _DailyUpdatesState createState() => _DailyUpdatesState();
@@ -17,7 +18,7 @@ class _DailyUpdatesState extends State<DailyUpdates> {
   Widget build(BuildContext context) {
     return Container(
       width: 336.w,
-      margin: EdgeInsets.only(left: 15.w),
+      margin: EdgeInsets.only(left: widget.initialPaddingLeft),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

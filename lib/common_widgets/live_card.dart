@@ -63,7 +63,7 @@ class _LiveCardState extends State<LiveCard> {
               bottom: 40.h,
               child: Container(
                 height: 48.h, width: 48.w,
-                child: Image.asset('asset/image_asset/play.png',
+                child: Image.asset('asset/icon_asset/play.png',
                   fit: BoxFit.fill,
                 ),
               ),

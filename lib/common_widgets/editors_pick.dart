@@ -16,7 +16,7 @@ class _EditorsPickState extends State<EditorsPick> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 251.w,
+      width: 252.w,
       margin: EdgeInsets.only(left: 15.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

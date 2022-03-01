@@ -1,5 +1,4 @@
 import 'dart:ui';
-import 'package:dailycricket_nv/common_widgets/custom_loader.dart';
 import 'package:dailycricket_nv/common_widgets/daily_updates.dart';
 import 'package:dailycricket_nv/common_widgets/editors_pick.dart';
 import 'package:dailycricket_nv/common_widgets/featured_videos.dart';
@@ -9,9 +8,9 @@ import 'package:dailycricket_nv/common_widgets/popular.dart';
 import 'package:dailycricket_nv/common_widgets/trending.dart';
 import 'package:dailycricket_nv/config/color_constants.dart';
 import 'package:dailycricket_nv/config/text_style.dart';
-import 'package:dailycricket_nv/screens/home/daily_updates_bloc/editors_pick_bloc.dart';
-import 'package:dailycricket_nv/screens/home/daily_updates_bloc/editors_pick_event.dart';
-import 'package:dailycricket_nv/screens/home/daily_updates_bloc/editors_pick_state.dart';
+import 'package:dailycricket_nv/screens/home/editors_pick_bloc/editors_pick_bloc.dart';
+import 'package:dailycricket_nv/screens/home/editors_pick_bloc/editors_pick_event.dart';
+import 'package:dailycricket_nv/screens/home/editors_pick_bloc/editors_pick_state.dart';
 import 'package:dailycricket_nv/screens/home/featured_videos_bloc/featured_videos_bloc.dart';
 import 'package:dailycricket_nv/screens/home/featured_videos_bloc/featured_videos_event.dart';
 import 'package:dailycricket_nv/screens/home/featured_videos_bloc/featured_videos_state.dart';
@@ -19,12 +18,14 @@ import 'package:dailycricket_nv/screens/home/home_bloc/home_bloc.dart';
 import 'package:dailycricket_nv/screens/home/home_bloc/home_event.dart';
 import 'package:dailycricket_nv/screens/home/home_bloc/home_state.dart';
 import 'package:dailycricket_nv/screens/home/view/home_slider.dart';
-import 'package:dailycricket_nv/screens/home/view/slider_skeleton.dart';
+import 'package:dailycricket_nv/screens/home/view/home_slider_skeleton.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
+import 'editors_pick_skeleton.dart';
+import 'featured_videos_skeleton.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -87,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     child: Center(
                       child: ImageIcon(AssetImage('asset/icon_asset/pin.png'),
-                        size: 15.sp, color: BasicBlack,),
+                        size: 15.sp, color: Grey,),
                     ),
                   ),
                   Spacer(flex: 2,),
@@ -104,59 +105,59 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   SizedBox(width: 26.w,),
 
-                  Stack(
-                    children: [
+                  InkWell(
+                    onTap: (){
+                      setState(() {
+                        isSwitched = !isSwitched;
+                      });
+                    },
+                    child: Stack(
+                      children: [
 
-                      InkWell(
-                        onTap: (){
-                          setState(() {
-                            isSwitched = !isSwitched;
-                          });
-                        },
-                        child: Container(
+                        Container(
                           height: 20.h, width: 36.w,
                           decoration: BoxDecoration(
                             color: BasicWhite,
                             borderRadius: BorderRadius.circular(15.r),
                           ),
                         ),
-                      ),
-                      isSwitched ? Positioned(
-                        left: 0,
-                        child: Container(
-                            height: 20.h, width: 24.w,
-                            decoration: BoxDecoration(
-                              color: PrimaryGreen,
-                              borderRadius: BorderRadius.circular(30.r),
-                            ),
-                            child: Center(
-                              child: Text('BN',
-                                style: TextStyle(
-                                    fontSize: 7, fontWeight: FontWeight.w800,
-                                    color: Colors.white),
+                        isSwitched ? Positioned(
+                          left: 0,
+                          child: Container(
+                              height: 20.h, width: 24.w,
+                              decoration: BoxDecoration(
+                                color: PrimaryGreen,
+                                borderRadius: BorderRadius.circular(30.r),
                               ),
-                            )
-                        ),
-                      ) :
-                      Positioned(
-                        right: 0,
-                        child: Container(
-                            height: 20.h, width: 24.w,
-                            decoration: BoxDecoration(
-                              color: PrimaryRed,
-                              borderRadius: BorderRadius.circular(30.r),
-                            ),
-                            child: Center(
-                              child: Text('EN',
-                                style: TextStyle(
-                                    fontSize: 7, fontWeight: FontWeight.w800,
-                                    color: Colors.white),
+                              child: Center(
+                                child: Text('BN',
+                                  style: TextStyle(
+                                      fontSize: 7, fontWeight: FontWeight.w800,
+                                      color: Colors.white),
+                                ),
+                              )
+                          ),
+                        ) :
+                        Positioned(
+                          right: 0,
+                          child: Container(
+                              height: 20.h, width: 24.w,
+                              decoration: BoxDecoration(
+                                color: PrimaryRed,
+                                borderRadius: BorderRadius.circular(30.r),
                               ),
-                            )
+                              child: Center(
+                                child: Text('EN',
+                                  style: TextStyle(
+                                      fontSize: 7, fontWeight: FontWeight.w800,
+                                      color: Colors.white),
+                                ),
+                              )
+                          ),
                         ),
-                      ),
 
-                    ],
+                      ],
+                    ),
                   ),
 
                   SizedBox(width: 26.w,),
@@ -230,9 +231,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: BlocBuilder<FeaturedVideosBloc, FeaturedVideosState>(
               builder: (context, state) {
                 if (state is FeaturedVideosLoading) {
-                  return Center(
-                    child: CustomLoader(),
-                  );
+                  return FeaturedVideosSkeleton();
                 } else if (state is FeaturedVideosFailure) {
                   return Container(
                     height: 92.h, width: 414.w,
@@ -281,9 +280,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: BlocBuilder<EditorsPickBloc, EditorsPickState>(
               builder: (context, state) {
                 if (state is EditorsPickLoading) {
-                  return Center(
-                    child: CustomLoader(),
-                  );
+                  return EditorsPickSkeleton();
                 } else if (state is EditorsPickFailure) {
                   return Container(
                     height: 92.h, width: 414.w,
@@ -337,7 +334,7 @@ class _HomeScreenState extends State<HomeScreen> {
               shrinkWrap: true,
               physics: AlwaysScrollableScrollPhysics(),
               itemBuilder: (context, i){
-                return DailyUpdates();
+                return DailyUpdates(initialPaddingLeft: 16.w,);
               }),
         ),
         SizedBox(

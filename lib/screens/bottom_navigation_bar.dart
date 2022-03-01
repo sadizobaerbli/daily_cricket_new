@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'article/article_page.dart';
 import 'fixture/fixture_page.dart';
+import 'more_option.dart';
 
 class BottomNavigation extends StatefulWidget {
   const BottomNavigation({Key? key}) : super(key: key);
@@ -30,8 +31,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
     else if(selectedTab == 'article'){  return ArticlePage(); }
     else if(selectedTab == 'series'){ return SeriesPage(); }
     else if(selectedTab == 'fixture'){  return FixturePage(); }
-    else if(selectedTab == 'more'){ return Container(); }
-
   }
 
   _tabItem({String? title, ImageIcon? imageIcon}){
@@ -128,17 +127,24 @@ class _BottomNavigationState extends State<BottomNavigation> {
                     ),
                   ),
                   InkWell(
-                    onTap: ()=> _onTabSelect(tabName: "more"),
+                    onTap: (){
+                      showDialog(
+                          context: context,
+                          builder: (context){
+                            return MoreOptions();
+                          });
+                    },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.arrow_forward_sharp, color: BasicWhite, size: 26.sp,),
+                        ImageIcon(
+                          AssetImage('asset/icon_asset/more.png'),
+                          size: 26.sp,
+                          color: BasicWhite,
+                        ),
                         SizedBox(height: 5.h,),
                         Text('more'.toUpperCase(),
-                          style: selectedTab == 'more' ? boldText(
-                            fontSize: 9.sp,
-                            color: BasicWhite,
-                          ) : regularText(
+                          style: boldText(
                             fontSize: 9.sp,
                             color: BasicWhite,
                           ),

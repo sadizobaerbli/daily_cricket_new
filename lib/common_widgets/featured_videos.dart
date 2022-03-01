@@ -19,6 +19,8 @@ class _FeaturedVideosState extends State<FeaturedVideos> {
     String videoId = divider[4].split("?")[0];
     String thumbingImageUrl =
         'https://img.youtube.com/vi/$videoId/hqdefault.jpg';
+
+    print(thumbingImageUrl);
     return thumbingImageUrl;
   }
 
@@ -35,7 +37,7 @@ class _FeaturedVideosState extends State<FeaturedVideos> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15.r),
               child: Image.network(_getThumbImage(link: widget.url),
-                fit: BoxFit.fill,),
+                fit: BoxFit.cover,),
             ),
           ),
           SizedBox(height: 7.h,),

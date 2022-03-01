@@ -24,8 +24,7 @@ class _DailySeriesUpdatesState extends State<DailySeriesUpdates> {
     return Column(
       children: [
         Stack(
-          overflow: Overflow.visible,
-          children: <Widget>[
+          clipBehavior: Clip.none, children: <Widget>[
             CarouselSlider.builder(
                 options: CarouselOptions(
                   autoPlay: false,
@@ -33,6 +32,7 @@ class _DailySeriesUpdatesState extends State<DailySeriesUpdates> {
                   enableInfiniteScroll: false,
                   height: 200.h,
                   viewportFraction: .86,
+                  initialPage: 0,
                   onPageChanged: (index, reason) {
 
                     setState(() {
@@ -147,6 +147,7 @@ class _DailySeriesUpdatesState extends State<DailySeriesUpdates> {
           _trending(1),
           _popular(),
           _newsCard(3),
+
         ],
       ),
     );

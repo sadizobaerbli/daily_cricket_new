@@ -34,6 +34,7 @@ dependencies:
   flutter_staggered_grid_view:
   dio: ^4.0.1
   flutter_bloc: ^7.3.1
+  provider:
   shimmer: ^2.0.0
 
 dev_dependencies:
