@@ -3,8 +3,8 @@ import 'package:dailycricket_nv/config/color_constants.dart';
 import 'package:dailycricket_nv/config/skeleton.dart';
 import 'package:dailycricket_nv/config/text_style.dart';
 import 'package:dailycricket_nv/screens/match_details/match_details_bloc/match_details_bloc.dart';
+import 'package:dailycricket_nv/screens/match_details/match_details_bloc/match_details_event.dart';
 import 'package:dailycricket_nv/screens/match_details/match_details_bloc/match_details_state.dart';
-import 'package:dailycricket_nv/screens/match_details/model/over_wise_commentary.dart';
 import 'package:dailycricket_nv/screens/match_details/model/slider_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,11 +26,13 @@ class _MatchDetailsState extends State<MatchDetails> {
   TextStyle selectedStyle = boldText(fontSize: 12.sp, color: BasicWhite);
   TextStyle unselectedStyle = semiBoldText(fontSize: 12.sp, color: Grey);
 
-  selectChild(String item, {List<OverWiseCommentary>? overWiseCommentary}){
+  selectChild(String item){
     if(item == 'Live'){
-      return _liveSection(overWiseCommentary!);
+      context.read<MatchDetailsBloc>().add(MatchDetailsLiveEvent(matchId: widget.sliderModel.matchId!),);
+      return _liveSection();
     }
     else if(item == 'Scoreboard'){
+      context.read<MatchDetailsBloc>().add(MatchDetailsScoreboardEvent(matchId: widget.sliderModel.matchId!),);
       return _scoreboardSection();
     }
     else{
@@ -45,77 +47,319 @@ class _MatchDetailsState extends State<MatchDetails> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(89.h), child: CustomAppbar(radius: 15,),
       ),
-      body: BlocBuilder<MatchDetailsBloc, MatchDetailsState>(
-        builder: (context, state){
-          if(state is MatchDetailsLoading){
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 40.h,),
-                Center(
-                  child: Container(
-                    width: 371.w,
-                    margin: EdgeInsets.only(bottom: 20.h,),
-                    decoration: BoxDecoration(
-                      color: BasicWhite,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Grey.withOpacity(0.2),
-                          spreadRadius: 1,
-                          blurRadius: 2,
-                          offset: Offset(0, 1), // changes position of shadow
-                        ),
-                      ],
-                      borderRadius: BorderRadius.circular(12.r),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(left: 23.w),
+              child: InkWell(
+                onTap: (){
+                  Navigator.pop(context);
+                },
+                child: ImageIcon(
+                  AssetImage('asset/icon_asset/back.png'),
+                  size: 38.sp,
+                  color: BasicBlack,
+                ),
+              ),
+            ),
+            Center(
+              child: Container(
+                width: 371.w,
+                margin: EdgeInsets.only(bottom: 20.h,),
+                decoration: BoxDecoration(
+                  color: BasicWhite,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Grey.withOpacity(0.2),
+                      spreadRadius: 1,
+                      blurRadius: 2,
+                      offset: Offset(0, 1), // changes position of shadow
                     ),
+                  ],
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
 
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(9.w, 23.h, 9.w, 22.h),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                child: Container(
+                  padding: EdgeInsets.fromLTRB(9.w, 13.h, 9.w, 12.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
                         children: [
-                          Row(
-                            children: [
-                              SizedBox(width: 8.w,),
-                              RoundedSkeleton(height: 16, width: 140,),
-                              Spacer(),
-                              RoundedSkeleton(height: 16, width: 80,),
-                              SizedBox(width: 8.w,),
-                            ],
+                          Container(
+                            padding: EdgeInsets.only(left: 3.sp),
+                            child: Text('${widget.sliderModel.gameStateStr}'.toUpperCase(),
+                              style: boldText(
+                                fontSize: 9.sp,
+                                color: PrimaryRed,
+                              ),
+                            ),
                           ),
-                          SizedBox(height: 21.h,),
-                          Row(
-                            children: [
-                              SizedBox(width: 8.w,),
-                              RoundedSkeleton(height: 16, width: 80,),
-                              Spacer(),
-                              RoundedSkeleton(height: 16, width: 80,),
-                              SizedBox(width: 7.w,),
-                            ],
+                          Container(
+                            margin: EdgeInsets.only(left: 8.w, right: 5.sp),
+                            height: 4.h, width: 4.h,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Grey,
+                            ),
                           ),
-
-                          SizedBox(height: 21.h,),
-                          Row(
-                            children: [
-                              SizedBox(width: 8.w,),
-                              RoundedSkeleton(height: 16, width: 240,),
-                            ],
+                          Text('${widget.sliderModel.competitionAbbr}',
+                            style: boldText(fontSize: 9.sp,),
                           ),
-                          SizedBox(height: 21.h,),
-                          Row(
-                            children: [
-                              SizedBox(width: 8.h,),
-                              RoundedSkeleton(height: 16, width: 140,),
-                              SizedBox(width: 16.h,),
-                              RoundedSkeleton(height: 16, width: 140,),
-                            ],
+                          Container(
+                            margin: EdgeInsets.only(left: 8.w, right: 5.sp),
+                            height: 4.h, width: 4.h,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Grey,
+                            ),
+                          ),
+                          Text('${widget.sliderModel.venueLocation}'
+                              .toUpperCase(),
+                            style: boldText(
+                              fontSize: 9.sp,
+                              color: Grey,
+                            ),
+                          ),
+                          Spacer(),
+                          InkWell(
+                            onTap: (){},
+                            child: ImageIcon(
+                              AssetImage('asset/icon_asset/pin.png'),
+                              size: 17.sp,
+                              color: Grey,
+                            ),
+                          ),
+                          SizedBox(width: 11.w,),
+                          Container(
+                            padding: EdgeInsets.fromLTRB(8.w, 4.h, 8.w, 5.h),
+                            margin: EdgeInsets.only(right: 11.w),
+                            decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(5.r)
+                            ),
+                            child: Text(
+                              '${widget.sliderModel.gameStr}',
+                              style: boldText(
+                                fontSize: 8.sp,
+                                color: BasicWhite,
+                              ),
+                            ),
                           ),
                         ],
                       ),
+                      SizedBox(height: 16.h,),
+                      Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(left: 2.w),
+                            height: 29.h, width: 29.w,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(50.r),
+                              child: Image.network(
+                                '${widget.sliderModel.teamALogoUrl}',
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+
+                          SizedBox(width: 12.w,),
+                          Text(
+                            '${widget.sliderModel.teamAName}'.
+                            substring(0,3).toUpperCase(),
+                            style: boldText(fontSize: 14.sp,
+                            ),
+                          ),
+                          Spacer(),
+                          Text('${widget.sliderModel.teamAOver}',
+                            style: TextStyle(fontWeight: FontWeight.w800,
+                              color: Colors.grey, fontSize: 11.sp,
+                            ),
+                          ),
+                          SizedBox(width: 21.w,),
+                          Text("${widget.sliderModel.teamAScore}",
+                            style: boldText(fontSize: 16.sp),
+                          ),
+                          SizedBox(width: 7.w,),
+                        ],
+                      ),
+                      SizedBox(height: 11.h,),
+                      Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(left: 2.w),
+                            height: 29.h, width: 29.w,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(50.r),
+                              child: Image.network(
+                                "${widget.sliderModel.teamBLogoUrl}",
+                                fit: BoxFit.fill,),
+                            ),
+                          ),
+
+                          SizedBox(width: 12.w,),
+                          Text(
+                            '${widget.sliderModel.teamBName}'.
+                            substring(0,3).toUpperCase(),
+                            style: boldText(fontSize: 14.sp),
+                          ),
+                          Spacer(),
+                          Text('${widget.sliderModel.teamBOver}',
+                            style: TextStyle(fontWeight: FontWeight.w800,
+                              color: Colors.grey, fontSize: 11.sp,
+                            ),
+                          ),
+                          SizedBox(width: 21.w,),
+                          Text("${widget.sliderModel.teamBScore}",
+                            style: boldText(fontSize: 16.sp),
+                          ),
+                          SizedBox(width: 7.w,),
+                        ],
+                      ),
+                      SizedBox(height: 9.h,),
+                      Row(
+                        children: [
+                          SizedBox(width: 5.w,),
+                          Text(widget.sliderModel.statusNote == null ? '' : '${widget.sliderModel.statusNote!.split(':')[0]}',
+                            style: boldText(fontSize: 9.sp, color: Grey),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 4.h,),
+                      Padding(
+                        padding: EdgeInsets.only(left: 4.sp),
+                        child: Text('${widget.sliderModel.venueLocation}'.toUpperCase(),
+                          style: boldText(fontSize: 12.sp,),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              height: 35.h, width: 230,
+              margin: EdgeInsets.only(left: 23.w),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(18.r),
+                  gradient: LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [PrimaryGreen,PrimaryDeepGreen]
+                  )
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 28.w),
+              child: Row(
+                children: List.generate(3, (index) => InkWell(
+                  onTap: (){
+                    setState(() {
+                      selectedItem = tabItems[index];
+                    });
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 15.w),
+                    child: Text(tabItems[index],
+                      style: selectedItem == tabItems[index] ? selectedStyle : unselectedStyle,),
+                  ),
+                ),),
+              ),
+            ),
+            SizedBox(height: 16.h,),
+            selectChild(selectedItem,),
+
+          ],
+        ),
+      ),
+    );
+  }
+
+
+  _scoreColor(dynamic score){
+    if(score == 'w'){
+      return PrimaryRed;
+    } else if(score == 4){
+      return PrimaryBlue;
+    } else if(score == 6){
+      return PrimaryGreen;
+    } else{
+      return Grey.withOpacity(.4);
+    }
+  }
+
+  _liveSection(){
+    return BlocBuilder<MatchDetailsBloc, MatchDetailsState>(
+      builder: (context, state){
+        if(state is MatchDetailsLoading){
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 40.h,),
+              Center(
+                child: Container(
+                  width: 371.w,
+                  margin: EdgeInsets.only(bottom: 20.h,),
+                  decoration: BoxDecoration(
+                    color: BasicWhite,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Grey.withOpacity(0.2),
+                        spreadRadius: 1,
+                        blurRadius: 2,
+                        offset: Offset(0, 1), // changes position of shadow
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(12.r),
+                  ),
+
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(9.w, 23.h, 9.w, 22.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            SizedBox(width: 8.w,),
+                            RoundedSkeleton(height: 16, width: 140,),
+                            Spacer(),
+                            RoundedSkeleton(height: 16, width: 80,),
+                            SizedBox(width: 8.w,),
+                          ],
+                        ),
+                        SizedBox(height: 21.h,),
+                        Row(
+                          children: [
+                            SizedBox(width: 8.w,),
+                            RoundedSkeleton(height: 16, width: 80,),
+                            Spacer(),
+                            RoundedSkeleton(height: 16, width: 80,),
+                            SizedBox(width: 7.w,),
+                          ],
+                        ),
+
+                        SizedBox(height: 21.h,),
+                        Row(
+                          children: [
+                            SizedBox(width: 8.w,),
+                            RoundedSkeleton(height: 16, width: 240,),
+                          ],
+                        ),
+                        SizedBox(height: 21.h,),
+                        Row(
+                          children: [
+                            SizedBox(width: 8.h,),
+                            RoundedSkeleton(height: 16, width: 140,),
+                            SizedBox(width: 16.h,),
+                            RoundedSkeleton(height: 16, width: 140,),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                /*Container(
+              ),
+              /*Container(
                   height: 35.h, width: 230,
                   margin: EdgeInsets.only(left: 23.w),
                   decoration: BoxDecoration(
@@ -301,292 +545,303 @@ class _MatchDetailsState extends State<MatchDetails> {
                     ),
                   ),
                 ),*/
-              ],
-            );
-          }
-          else if(state is MatchDetailsSuccess){
-            return SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 23.w),
-                    child: InkWell(
-                      onTap: (){
-                        Navigator.pop(context);
-                      },
-                      child: ImageIcon(
-                        AssetImage('asset/icon_asset/back.png'),
-                        size: 38.sp,
-                        color: BasicBlack,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Container(
-                      width: 371.w,
-                      margin: EdgeInsets.only(bottom: 20.h,),
-                      decoration: BoxDecoration(
-                        color: BasicWhite,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Grey.withOpacity(0.2),
-                            spreadRadius: 1,
-                            blurRadius: 2,
-                            offset: Offset(0, 1), // changes position of shadow
+            ],
+          );
+        }
+        else if(state is MatchDetailsLive){
+          return ListView.builder(
+              itemCount: state.overWiseCommentary.length,
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              reverse: true,
+              itemBuilder: (context, index){
+                return Padding(
+                  padding: EdgeInsets.only(bottom: 16.h),
+                  child: Column(
+                    children: [
+                      Center(
+                        child: Container(
+                          height: 51.h, width: 371.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.vertical(top: Radius.circular(18.r),),
+                            color: PrimaryGreen,
                           ),
-                        ],
-                        borderRadius: BorderRadius.circular(12.r),
-                      ),
-
-                      child: Container(
-                        padding: EdgeInsets.fromLTRB(9.w, 13.h, 9.w, 12.h),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.only(left: 3.sp),
-                                  child: Text('${widget.sliderModel.gameStateStr}'.toUpperCase(),
-                                    style: boldText(
-                                      fontSize: 9.sp,
-                                      color: PrimaryRed,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(left: 8.w, right: 5.sp),
-                                  height: 4.h, width: 4.h,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Grey,
-                                  ),
-                                ),
-                                Text('${widget.sliderModel.competitionAbbr}',
-                                  style: boldText(fontSize: 9.sp,),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(left: 8.w, right: 5.sp),
-                                  height: 4.h, width: 4.h,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Grey,
-                                  ),
-                                ),
-                                Text('${widget.sliderModel.venueLocation}'
-                                    .toUpperCase(),
-                                  style: boldText(
-                                    fontSize: 9.sp,
-                                    color: Grey,
-                                  ),
-                                ),
-                                Spacer(),
-                                InkWell(
-                                  onTap: (){},
-                                  child: ImageIcon(
-                                    AssetImage('asset/icon_asset/pin.png'),
-                                    size: 17.sp,
-                                    color: Grey,
-                                  ),
-                                ),
-                                SizedBox(width: 11.w,),
-                                Container(
-                                  padding: EdgeInsets.fromLTRB(8.w, 4.h, 8.w, 5.h),
-                                  margin: EdgeInsets.only(right: 11.w),
-                                  decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.circular(5.r)
-                                  ),
-                                  child: Text(
-                                    '${widget.sliderModel.gameStr}',
-                                    style: boldText(
-                                      fontSize: 8.sp,
-                                      color: BasicWhite,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 16.h,),
-                            Row(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.only(left: 2.w),
-                                  height: 29.h, width: 29.w,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(50.r),
-                                    child: Image.network(
-                                      '${widget.sliderModel.teamALogoUrl}',
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                ),
-
-                                SizedBox(width: 12.w,),
-                                Text(
-                                  '${widget.sliderModel.teamAName}'.
-                                  substring(0,3).toUpperCase(),
-                                  style: boldText(fontSize: 14.sp,
-                                  ),
-                                ),
-                                Spacer(),
-                                Text('${widget.sliderModel.teamAOver}',
-                                  style: TextStyle(fontWeight: FontWeight.w800,
-                                    color: Colors.grey, fontSize: 11.sp,
-                                  ),
-                                ),
-                                SizedBox(width: 21.w,),
-                                Text("${widget.sliderModel.teamAScore}",
-                                  style: boldText(fontSize: 16.sp),
-                                ),
-                                SizedBox(width: 7.w,),
-                              ],
-                            ),
-                            SizedBox(height: 11.h,),
-                            Row(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.only(left: 2.w),
-                                  height: 29.h, width: 29.w,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(50.r),
-                                    child: Image.network(
-                                      "${widget.sliderModel.teamBLogoUrl}",
-                                      fit: BoxFit.fill,),
-                                  ),
-                                ),
-
-                                SizedBox(width: 12.w,),
-                                Text(
-                                  '${widget.sliderModel.teamBName}'.
-                                  substring(0,3).toUpperCase(),
-                                  style: boldText(fontSize: 14.sp),
-                                ),
-                                Spacer(),
-                                Text('${widget.sliderModel.teamBOver}',
-                                  style: TextStyle(fontWeight: FontWeight.w800,
-                                    color: Colors.grey, fontSize: 11.sp,
-                                  ),
-                                ),
-                                SizedBox(width: 21.w,),
-                                Text("${widget.sliderModel.teamBScore}",
-                                  style: boldText(fontSize: 16.sp),
-                                ),
-                                SizedBox(width: 7.w,),
-                              ],
-                            ),
-                            SizedBox(height: 9.h,),
-                            Row(
-                              children: [
-                                SizedBox(width: 5.w,),
-                                Text(widget.sliderModel.statusNote == null ? '' : '${widget.sliderModel.statusNote!.split(':')[0]}',
-                                  style: boldText(fontSize: 9.sp, color: Grey),
-                                ),
-                                /*Container(
-                                  margin: EdgeInsets.only(left: 4.w, right: 5.sp),
-                                  height: 4.h, width: 4.h,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Grey,
-                                  ),
-                                ),
-                                Text(widget.sliderModel.statusNote!.split(':').length > 1 ? '${widget.sliderModel.statusNote!.split(':')[1]}' : ' ' ,
-                                  style: boldText(fontSize: 9.sp,),
-                                ),*/
-                                Container(
-                                  margin: EdgeInsets.only(left: 4.w, right: 5.sp),
-                                  height: 4.h, width: 4.h,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Grey,
-                                  ),
-                                ),
-                                Text('CRR : ${state.runRate}',
-                                  style: boldText(fontSize: 9.sp, color: Grey),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 4.h,),
-                            Padding(
-                              padding: EdgeInsets.only(left: 4.sp),
-                              child: Text('${widget.sliderModel.venueLocation}'.toUpperCase(),
-                                style: boldText(fontSize: 12.sp,),
+                          padding: EdgeInsets.only(left: 28.w, right: 20.w),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('${state.overWiseCommentary[index].commentary.split(',')[0]}',
+                                    style: semiBoldText(fontSize: 12.sp, color: BasicWhite),),
+                                  Text('${state.overWiseCommentary[index].commentary.split(' ').last}',
+                                    style: boldText(fontSize: 14.sp, color: BasicWhite),),
+                                ],
                               ),
-                            ),
-                          ],
+                              SizedBox(height: 2.h,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('${state.overWiseCommentary[index].commentary.split(',')[1].substring(1,)  }',
+                                    style: semiBoldText(fontSize: 12.sp, color: BasicWhite),),
+                                  Text('${state.overWiseCommentary[index].commentary.split(',')[0].split('(').last.split(')').first}',
+                                    style: regularText(fontSize: 12.sp, color: BasicWhite),),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  Container(
-                    height: 35.h, width: 230,
-                    margin: EdgeInsets.only(left: 23.w),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(18.r),
-                        gradient: LinearGradient(
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                            colors: [PrimaryGreen,PrimaryDeepGreen]
-                        )
-                    ),
-                    padding: EdgeInsets.symmetric(horizontal: 28.w),
-                    child: Row(
-                      children: List.generate(3, (index) => InkWell(
-                        onTap: (){
-                          setState(() {
-                            selectedItem = tabItems[index];
-                          });
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.only(right: 15.w),
-                          child: Text(tabItems[index],
-                            style: selectedItem == tabItems[index] ? selectedStyle : unselectedStyle,),
+                      Center(
+                        child: Container(
+                          height: 58.h, width: 371.w,
+                          decoration: BoxDecoration(
+                            color: PrimaryDeepGreen,
+                          ),
+                          padding: EdgeInsets.only(left: 28.w, right: 20.w),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.only(right: 16.w),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      state.overWiseCommentary[index].batsman!.length > 0 ? Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text('${state.overWiseCommentary[index].batsman![0].batsmanName.split(' ')[0]}',
+                                            style: semiBoldText(fontSize: 13.sp, color: BasicWhite),),
+                                          Text('${state.overWiseCommentary[index].batsman![0].runs}(${state.overWiseCommentary[index].batsman![0].ballFaced})',
+                                            style: semiBoldText(fontSize: 13.sp, color: BasicWhite),)
+                                        ],
+                                      ) : Container(),
+                                      SizedBox(height: 6.h,),
+                                      state.overWiseCommentary[index].batsman!.length > 1 ? Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text('${state.overWiseCommentary[index].batsman![1].batsmanName.split(' ')[0]}',
+                                            style: semiBoldText(fontSize: 13.sp, color: BasicWhite),),
+                                          Text('${state.overWiseCommentary[index].batsman![1].runs}(${state.overWiseCommentary[index].batsman![0].ballFaced})',
+                                            style: semiBoldText(fontSize: 13.sp, color: BasicWhite),)
+                                        ],
+                                      ) : Container(),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Container(height: 58.h, width: 1.sp, color: PrimaryGreen,),
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 16.w),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      state.overWiseCommentary[index].bowlers!.length > 0 ? Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text('${state.overWiseCommentary[index].bowlers![0].bowlerName.split(' ')[1]}',
+                                            style: semiBoldText(fontSize: 13.sp, color: BasicWhite),),
+                                          Text('${state.overWiseCommentary[index].bowlers![0].overs}-${state.overWiseCommentary[index].bowlers![0].maidens}-${state.overWiseCommentary[index].bowlers![0].runs}-${state.overWiseCommentary[index].bowlers![0].wickets}',
+                                            style: semiBoldText(fontSize: 13.sp, color: BasicWhite),)
+                                        ],
+                                      ) : Container(),
+                                      SizedBox(height: 6.h,),
+                                      state.overWiseCommentary[index].bowlers!.length > 1 ? Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text('${state.overWiseCommentary[index].bowlers![1].bowlerName.split(' ')[1]}',
+                                            style: semiBoldText(fontSize: 13.sp, color: BasicWhite),),
+                                          Text('${state.overWiseCommentary[index].bowlers![1].overs}-${state.overWiseCommentary[index].bowlers![1].maidens}-${state.overWiseCommentary[index].bowlers![1].runs}-${state.overWiseCommentary[index].bowlers![1].wickets}',
+                                            style: semiBoldText(fontSize: 13.sp, color: BasicWhite),)
+                                        ],
+                                      ) : Container(),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),),
-                    ),
+                      ),
+                      Center(
+                        child: Container(
+                          width: 371.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.vertical(bottom: Radius.circular(18.r),),
+                            color: BasicWhite,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Grey.withOpacity(0.2),
+                                spreadRadius: 1,
+                                blurRadius: 2,
+                                offset: Offset(0, 1), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          padding: EdgeInsets.only(left: 28.w, right: 16.w),
+                          child: Column(
+                            children: [
+                              SizedBox(height: 17.h,),
+                              ListView.builder(
+                                  itemCount: state.overWiseCommentary.length,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  reverse: true,
+                                  itemBuilder: (context, i){
+                                    return Padding(
+                                      padding: EdgeInsets.only(bottom: 8.w),
+                                      child: Row(
+                                        children: [
+                                          Text('${state.overWiseCommentary[index].oneOverCommentary[i].over}.${state.overWiseCommentary[index].oneOverCommentary[i].ball}' ,
+                                            style: semiBoldText(fontSize: 15.sp, color: Grey),),
+                                          SizedBox(width: 24.w,),
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(16.r),
+                                              color: _scoreColor(state.overWiseCommentary[index].oneOverCommentary[i].score),
+                                            ),
+                                            child: SizedBox(
+                                              height: 25.h, width: 47.w,
+                                              child: Center(
+                                                child: Text('${state.overWiseCommentary[index].oneOverCommentary[i].score}'.toUpperCase(),
+                                                  style: boldText(fontSize: 14.sp, color: BasicWhite,),),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(width: 20.w,),
+                                          FittedBox(
+                                            fit: BoxFit.fill,
+                                            child: SizedBox(
+                                              width: 206.w,
+                                              child: Text('${state.overWiseCommentary[index].oneOverCommentary[i].commentary}',
+                                                maxLines: 2,
+                                                style: semiBoldText(fontSize: 11.sp, color: Grey),),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  }),
+                              SizedBox(height: 23.h,),
+
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 16.h,),
-                  selectChild(selectedItem, overWiseCommentary: state.overWiseCommentary),
-                  //_liveSection(state.overWiseCommentary),
-                  //_scoreboardSection(),
-
-                ],
-              ),
-            );
-          }
-          else{
-            return Container();
-          }
-        },
-
-      ),
+                );
+              });
+        }
+        else{
+          return Container();
+        }
+      },
     );
   }
 
-  _scoreColor(dynamic score){
-    if(score == 'w'){
-      return PrimaryRed;
-    } else if(score == 4){
-      return PrimaryBlue;
-    } else if(score == 6){
-      return PrimaryGreen;
-    } else{
-      return Grey.withOpacity(.4);
-    }
-  }
+  _scoreboardSection(){
+    return BlocBuilder<MatchDetailsBloc, MatchDetailsState>(
+      builder: (context, state){
+        if(state is MatchDetailsLoading){
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 40.h,),
+              Center(
+                child: Container(
+                  width: 371.w,
+                  margin: EdgeInsets.only(bottom: 20.h,),
+                  decoration: BoxDecoration(
+                    color: BasicWhite,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Grey.withOpacity(0.2),
+                        spreadRadius: 1,
+                        blurRadius: 2,
+                        offset: Offset(0, 1), // changes position of shadow
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(12.r),
+                  ),
 
-  _liveSection(List<OverWiseCommentary> overWiseCommentary){
-    return ListView.builder(
-        itemCount: overWiseCommentary.length,
-        physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        reverse: true,
-        itemBuilder: (context, index){
-          return Padding(
-            padding: EdgeInsets.only(bottom: 16.h),
-            child: Column(
-              children: [
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(9.w, 23.h, 9.w, 22.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            SizedBox(width: 8.w,),
+                            RoundedSkeleton(height: 16, width: 140,),
+                            Spacer(),
+                            RoundedSkeleton(height: 16, width: 80,),
+                            SizedBox(width: 8.w,),
+                          ],
+                        ),
+                        SizedBox(height: 21.h,),
+                        Row(
+                          children: [
+                            SizedBox(width: 8.w,),
+                            RoundedSkeleton(height: 16, width: 80,),
+                            Spacer(),
+                            RoundedSkeleton(height: 16, width: 80,),
+                            SizedBox(width: 7.w,),
+                          ],
+                        ),
+
+                        SizedBox(height: 21.h,),
+                        Row(
+                          children: [
+                            SizedBox(width: 8.w,),
+                            RoundedSkeleton(height: 16, width: 240,),
+                          ],
+                        ),
+                        SizedBox(height: 21.h,),
+                        Row(
+                          children: [
+                            SizedBox(width: 8.h,),
+                            RoundedSkeleton(height: 16, width: 140,),
+                            SizedBox(width: 16.h,),
+                            RoundedSkeleton(height: 16, width: 140,),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              /*Container(
+                  height: 35.h, width: 230,
+                  margin: EdgeInsets.only(left: 23.w),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(18.r),
+                      gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [PrimaryGreen,PrimaryDeepGreen]
+                      )
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 28.w),
+                  child: Row(
+                    children: List.generate(3, (index) => InkWell(
+                      onTap: (){
+                        setState(() {
+                          selectedItem = tabItems[index];
+                        });
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 15.w),
+                        child: Text(tabItems[index],
+                          style: selectedItem == tabItems[index] ? selectedStyle : unselectedStyle,),
+                      ),
+                    ),),
+                  ),
+                ),
+                SizedBox(height: 16.h,),
                 Center(
                   child: Container(
                     height: 51.h, width: 371.w,
@@ -594,16 +849,16 @@ class _MatchDetailsState extends State<MatchDetails> {
                       borderRadius: BorderRadius.vertical(top: Radius.circular(18.r),),
                       color: PrimaryGreen,
                     ),
-                    padding: EdgeInsets.only(left: 28.w, right: 20.w),
+                    padding: EdgeInsets.symmetric(horizontal: 28.w),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('${overWiseCommentary[index].commentary.split(',')[0]}',
+                            Text('End of 40 over(5 runs)',
                               style: semiBoldText(fontSize: 12.sp, color: BasicWhite),),
-                            Text('${overWiseCommentary[index].commentary.split(' ').last}',
+                            Text('177/2',
                               style: boldText(fontSize: 14.sp, color: BasicWhite),),
                           ],
                         ),
@@ -611,9 +866,9 @@ class _MatchDetailsState extends State<MatchDetails> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('${overWiseCommentary[index].commentary.split(',')[1].substring(1,)  }',
+                            Text('Bangladesh 177/2',
                               style: semiBoldText(fontSize: 12.sp, color: BasicWhite),),
-                            Text('${overWiseCommentary[index].commentary.split(',')[0].split('(').last.split(')').first}',
+                            Text('5 runs',
                               style: regularText(fontSize: 12.sp, color: BasicWhite),),
                           ],
                         ),
@@ -627,7 +882,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                     decoration: BoxDecoration(
                       color: PrimaryDeepGreen,
                     ),
-                    padding: EdgeInsets.only(left: 28.w, right: 20.w),
+                    padding: EdgeInsets.symmetric(horizontal: 28.w),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -637,25 +892,25 @@ class _MatchDetailsState extends State<MatchDetails> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                overWiseCommentary[index].batsman!.length > 0 ? Row(
+                                Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text('${overWiseCommentary[index].batsman![0].batsmanName.split(' ')[0]}',
+                                    Text('Sakib',
                                       style: semiBoldText(fontSize: 13.sp, color: BasicWhite),),
-                                    Text('${overWiseCommentary[index].batsman![0].runs}(${overWiseCommentary[index].batsman![0].ballFaced})',
+                                    Text('121(52)',
                                       style: semiBoldText(fontSize: 13.sp, color: BasicWhite),)
                                   ],
-                                ) : Container(),
+                                ),
                                 SizedBox(height: 6.h,),
-                                overWiseCommentary[index].batsman!.length > 1 ? Row(
+                                Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text('${overWiseCommentary[index].batsman![1].batsmanName.split(' ')[0]}',
+                                    Text('Sakib',
                                       style: semiBoldText(fontSize: 13.sp, color: BasicWhite),),
-                                    Text('${overWiseCommentary[index].batsman![1].runs}(${overWiseCommentary[index].batsman![0].ballFaced})',
+                                    Text('121(52)',
                                       style: semiBoldText(fontSize: 13.sp, color: BasicWhite),)
                                   ],
-                                ) : Container(),
+                                ),
                               ],
                             ),
                           ),
@@ -667,25 +922,25 @@ class _MatchDetailsState extends State<MatchDetails> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                overWiseCommentary[index].bowlers!.length > 0 ? Row(
+                                Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text('${overWiseCommentary[index].bowlers![0].bowlerName.split(' ')[1]}',
+                                    Text('Rijbi',
                                       style: semiBoldText(fontSize: 13.sp, color: BasicWhite),),
-                                    Text('${overWiseCommentary[index].bowlers![0].overs}-${overWiseCommentary[index].bowlers![0].maidens}-${overWiseCommentary[index].bowlers![0].runs}-${overWiseCommentary[index].bowlers![0].wickets}',
+                                    Text('10-1-38-2',
                                       style: semiBoldText(fontSize: 13.sp, color: BasicWhite),)
                                   ],
-                                ) : Container(),
+                                ),
                                 SizedBox(height: 6.h,),
-                                overWiseCommentary[index].bowlers!.length > 1 ? Row(
+                                Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text('${overWiseCommentary[index].bowlers![1].bowlerName.split(' ')[1]}',
+                                    Text('Makmal',
                                       style: semiBoldText(fontSize: 13.sp, color: BasicWhite),),
-                                    Text('${overWiseCommentary[index].bowlers![1].overs}-${overWiseCommentary[index].bowlers![1].maidens}-${overWiseCommentary[index].bowlers![1].runs}-${overWiseCommentary[index].bowlers![1].wickets}',
+                                    Text('9-1-39-1',
                                       style: semiBoldText(fontSize: 13.sp, color: BasicWhite),)
                                   ],
-                                ) : Container(),
+                                ),
                               ],
                             ),
                           ),
@@ -709,69 +964,58 @@ class _MatchDetailsState extends State<MatchDetails> {
                         ),
                       ],
                     ),
-                    padding: EdgeInsets.only(left: 28.w, right: 16.w),
+                    padding: EdgeInsets.symmetric(horizontal: 28.w),
                     child: Column(
                       children: [
                         SizedBox(height: 17.h,),
-                        ListView.builder(
-                            itemCount: overWiseCommentary.length,
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            reverse: true,
-                            itemBuilder: (context, i){
-                              return Padding(
-                                padding: EdgeInsets.only(bottom: 8.w),
-                                child: Row(
-                                  children: [
-                                    Text('${overWiseCommentary[index].oneOverCommentary[i].over}.${overWiseCommentary[index].oneOverCommentary[i].ball}' ,
-                                      style: semiBoldText(fontSize: 15.sp, color: Grey),),
-                                    SizedBox(width: 24.w,),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(16.r),
-                                        color: _scoreColor(overWiseCommentary[index].oneOverCommentary[i].score),
-                                      ),
-                                      child: SizedBox(
-                                        height: 25.h, width: 47.w,
-                                        child: Center(
-                                          child: Text('${overWiseCommentary[index].oneOverCommentary[i].score}'.toUpperCase(),
-                                            style: boldText(fontSize: 14.sp, color: BasicWhite,),),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(width: 20.w,),
-                                    FittedBox(
-                                      fit: BoxFit.fill,
-                                      child: SizedBox(
-                                        width: 206.w,
-                                        child: Text('${overWiseCommentary[index].oneOverCommentary[i].commentary}',
-                                          maxLines: 2,
-                                          style: semiBoldText(fontSize: 11.sp, color: Grey),),
-                                      ),
-                                    ),
-                                  ],
+                        Column(
+                          children: List.generate(6, (index) => Padding(
+                            padding: EdgeInsets.only(bottom: 8.w),
+                            child: Row(
+                              children: [
+                                Text('33.${index+1}',
+                                  style: semiBoldText(fontSize: 15.sp, color: Grey),),
+                                SizedBox(width: 24.w,),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16.r),
+                                    color: Grey,
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.w),
+                                    child: Text('3',
+                                      style: boldText(fontSize: 15.sp, color: BasicWhite),),
+                                  ),
                                 ),
-                              );
-                            }),
+                                SizedBox(width: 20.w,),
+                                Text('Sakib al hasan , no run',
+                                  style: semiBoldText(fontSize: 15.sp, color: Grey),),
+                              ],
+                            ),
+                          ),),
+                        ),
                         SizedBox(height: 23.h,),
 
                       ],
                     ),
                   ),
-                ),
-              ],
-            ),
+                ),*/
+            ],
           );
-        });
-  }
-
-  _scoreboardSection(){
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _oneSideScoreboard(),
-        _oneSideScoreboard(),
-      ],
+        }
+        else if(state is MatchDetailsScoreboard){
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _oneSideScoreboard(),
+              _oneSideScoreboard(),
+            ],
+          );
+        }
+        else{
+          return Container();
+        }
+      },
     );
   }
 

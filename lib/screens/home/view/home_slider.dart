@@ -59,9 +59,9 @@ class _HomeSliderState extends State<HomeSlider> {
 
               return InkWell(
                 onTap:() {
-                  context.read<MatchDetailsBloc>().add(MatchDetailsDataEvent(matchId: widget.items![index].matchId!),);
                   Navigator.push(context, MaterialPageRoute(builder: (context)=> MatchDetails(sliderModel: SliderModel(
                     gameStateStr: widget.items![index].gameStateStr,
+                    matchId: widget.items![index].matchId,
                     competitionAbbr: widget.items![index].competition!.abbr,
                     venueLocation: widget.items![index].venue!.location,
                     gameStr: widget.items![index].statusStr,

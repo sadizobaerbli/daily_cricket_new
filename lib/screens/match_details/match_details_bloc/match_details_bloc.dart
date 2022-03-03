@@ -1,6 +1,7 @@
 
 import 'package:dailycricket_nv/screens/match_details/model/match_details_live_model.dart';
 import 'package:dailycricket_nv/screens/match_details/model/over_wise_commentary.dart';
+import 'package:dailycricket_nv/screens/match_details/model/scoreboard_model.dart';
 import 'package:dailycricket_nv/screens/match_details/network/match_details_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'match_details_event.dart';
@@ -17,9 +18,9 @@ class MatchDetailsBloc extends Bloc<MatchDetailsEvent, MatchDetailsState> {
   Stream<MatchDetailsState> mapEventToState(MatchDetailsEvent event) async* {
     final currentState = state;
 
-    if (event is MatchDetailsDataEvent) {
+    if (event is MatchDetailsLiveEvent) {
 
-      if(currentState is MatchDetailsInitial || currentState is MatchDetailsSuccess) {
+      if(currentState is MatchDetailsInitial || currentState is MatchDetailsLive || currentState is MatchDetailsScoreboard) {
         yield MatchDetailsLoading();
         repository = MatchDetailsRepository();
 
@@ -80,7 +81,29 @@ class MatchDetailsBloc extends Bloc<MatchDetailsEvent, MatchDetailsState> {
             }
           });
 
-          yield MatchDetailsSuccess(overWiseCommentary: overWiseCommentary, runRate: matchDetailsLiveModel.response!.liveScore!.runrate!.toString(),);
+          yield MatchDetailsLive(overWiseCommentary: overWiseCommentary, runRate: matchDetailsLiveModel.response!.liveScore!.runrate!.toString(),);
+        } else {
+          yield MatchDetailsFailure(errorMessage: 'Failed to fetch data');
+        }
+      }
+
+    }
+
+    if (event is MatchDetailsScoreboardEvent) {
+
+      if(currentState is MatchDetailsInitial || currentState is MatchDetailsLive || currentState is MatchDetailsScoreboard) {
+        yield MatchDetailsLoading();
+        repository = MatchDetailsRepository();
+
+        //-----------api is called-------------
+
+        final response = await repository.getMatchDetailsScoreboardData(event.matchId);
+
+        if (response.statusCode == 200) {
+
+          MatchDetailsScoreboardModel matchDetailsScoreboardModel = MatchDetailsScoreboardModel.fromJson(response.data);
+
+          yield MatchDetailsScoreboard(matchDetailsScoreboardModel: matchDetailsScoreboardModel);
         } else {
           yield MatchDetailsFailure(errorMessage: 'Failed to fetch data');
         }

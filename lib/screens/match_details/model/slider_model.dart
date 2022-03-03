@@ -3,6 +3,7 @@
 class SliderModel{
 
   String? gameStateStr;
+  dynamic matchId;
   String? competitionAbbr;
   String? venueLocation;
   String? gameStr;
@@ -18,6 +19,7 @@ class SliderModel{
 
   SliderModel({
     this.gameStateStr,
+    this.matchId,
     this.competitionAbbr,
     this.venueLocation,
     this.gameStr,

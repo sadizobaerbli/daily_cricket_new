@@ -26,4 +26,23 @@ class MatchDetailsRepository {
     return response;
   }
 
+  Future getMatchDetailsScoreboardData(int matchId) async {
+
+    final response = await dio.get(
+      matchDetailsScoreboardUrl(matchId),
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Vary': 'Accept',
+        },
+        followRedirects: false,
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+
+    return response;
+  }
+
 }

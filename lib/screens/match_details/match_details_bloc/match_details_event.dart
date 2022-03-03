@@ -9,11 +9,19 @@ abstract class MatchDetailsEvent {
 
 //----------------data event with current index------------
 
-class MatchDetailsDataEvent extends MatchDetailsEvent {
+class MatchDetailsLiveEvent extends MatchDetailsEvent {
 
   final int matchId;
-  MatchDetailsDataEvent({required this.matchId});
+  MatchDetailsLiveEvent({required this.matchId});
 
   @override
   List<Object> get props => [matchId];
+}
+
+class MatchDetailsScoreboardEvent extends MatchDetailsEvent {
+
+  final int matchId;
+  MatchDetailsScoreboardEvent({required this.matchId});
+  @override
+  List<Object> get props => [];
 }

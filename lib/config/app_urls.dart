@@ -9,3 +9,5 @@ const editorsPickUrl = 'https://admin.dailycricket.com.bd/api/en/v1/latest-artic
 
 String matchDetailsLiveUrl(int matchId) => 'https://dailycricket.com.bd/live/matches/$matchId/live?token=9e272eadc7907624ee8bb8d4b0eca1f5';
 
+String matchDetailsScoreboardUrl(int matchId) => 'https://dailycricket.com.bd/live/matches/$matchId/scorecard?token=9e272eadc7907624ee8bb8d4b0eca1f5';
+
