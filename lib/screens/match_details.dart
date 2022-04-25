@@ -1,12 +1,12 @@
 
-import 'package:dailycricket_nv/controllers/match_details/match_details_bloc.dart';
-import 'package:dailycricket_nv/controllers/match_details/match_details_event.dart';
-import 'package:dailycricket_nv/controllers/match_details/match_details_state.dart';
-import 'package:dailycricket_nv/models/slider_model.dart';
-import 'package:dailycricket_nv/widgets/custom_appbar.dart';
-import 'package:dailycricket_nv/config/color_constants.dart';
-import 'package:dailycricket_nv/config/skeleton.dart';
-import 'package:dailycricket_nv/config/text_style.dart';
+import '../blocs/match_details/match_details_state.dart';
+import '../models/slider_model.dart';
+import '../widgets/custom_appbar.dart';
+import '../config/color_constants.dart';
+import '../config/skeleton.dart';
+import '../config/text_style.dart';
+import '../blocs/match_details/match_details_bloc.dart';
+import '../blocs/match_details/match_details_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

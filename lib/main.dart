@@ -13,10 +13,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'controllers/editors_pick/editors_pick_bloc.dart';
-import 'controllers/featured_videos/featured_videos_bloc.dart';
-import 'controllers/home/home_bloc.dart';
-import 'controllers/match_details/match_details_bloc.dart';
+
+import 'blocs/editors_pick/editors_pick_bloc.dart';
+import 'blocs/featured_videos/featured_videos_bloc.dart';
+import 'blocs/home/home_bloc.dart';
+import 'blocs/match_details/match_details_bloc.dart';
 
 void main() {
   //=========Disabled landscape mode=========

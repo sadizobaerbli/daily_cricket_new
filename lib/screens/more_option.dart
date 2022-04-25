@@ -1,5 +1,5 @@
-import 'package:dailycricket_nv/config/color_constants.dart';
-import 'package:dailycricket_nv/config/text_style.dart';
+import '../../config/color_constants.dart';
+import '../../config/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
