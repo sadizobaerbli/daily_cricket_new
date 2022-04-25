@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'color_constants.dart';
 
-
-
-TextStyle boldText({required double fontSize, Color color = BasicBlack, double lineHeight = 1.0}){
-
+TextStyle boldText(
+    {required double fontSize,
+    Color color = BasicBlack,
+    double lineHeight = 1.0}) {
   return TextStyle(
     fontSize: fontSize,
     fontFamily: 'SegoeUi',
@@ -14,9 +14,10 @@ TextStyle boldText({required double fontSize, Color color = BasicBlack, double l
   );
 }
 
-
-TextStyle mediumText({required double fontSize, Color color = BasicBlack, double lineHeight = 1.0}){
-
+TextStyle mediumText(
+    {required double fontSize,
+    Color color = BasicBlack,
+    double lineHeight = 1.0}) {
   return TextStyle(
     fontSize: fontSize,
     fontFamily: 'SegoeUi',
@@ -26,8 +27,10 @@ TextStyle mediumText({required double fontSize, Color color = BasicBlack, double
   );
 }
 
-TextStyle semiBoldText({required double fontSize, Color color = BasicBlack, double lineHeight = 1.0}){
-
+TextStyle semiBoldText(
+    {required double fontSize,
+    Color color = BasicBlack,
+    double lineHeight = 1.0}) {
   return TextStyle(
     fontSize: fontSize,
     fontFamily: 'SegoeUi',
@@ -37,8 +40,10 @@ TextStyle semiBoldText({required double fontSize, Color color = BasicBlack, doub
   );
 }
 
-TextStyle regularText({required double fontSize, Color color = BasicBlack, double lineHeight = 1.0}){
-
+TextStyle regularText(
+    {required double fontSize,
+    Color color = BasicBlack,
+    double lineHeight = 1.0}) {
   return TextStyle(
     fontSize: fontSize,
     fontFamily: 'SegoeUi',

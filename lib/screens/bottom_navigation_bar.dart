@@ -1,6 +1,6 @@
 import 'package:dailycricket_nv/config/color_constants.dart';
 import 'package:dailycricket_nv/config/text_style.dart';
-import 'package:dailycricket_nv/screens/home/view/home_screen.dart';
+import 'package:dailycricket_nv/screens/home/home_screen.dart';
 import 'package:dailycricket_nv/screens/series/series_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';

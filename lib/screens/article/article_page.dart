@@ -1,4 +1,4 @@
-import 'package:dailycricket_nv/common_widgets/custom_appbar.dart';
+import 'package:dailycricket_nv/widgets/custom_appbar.dart';
 import 'package:dailycricket_nv/config/color_constants.dart';
 import 'package:dailycricket_nv/config/text_style.dart';
 import 'package:dailycricket_nv/screens/article/news/news_page.dart';

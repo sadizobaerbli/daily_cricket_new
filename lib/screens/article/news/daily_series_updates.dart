@@ -1,9 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dailycricket_nv/common_widgets/daily_updates.dart';
-import 'package:dailycricket_nv/common_widgets/news_card.dart';
-import 'package:dailycricket_nv/common_widgets/popular.dart';
-import 'package:dailycricket_nv/common_widgets/trending.dart';
+import 'package:dailycricket_nv/widgets/news_card.dart';
+import 'package:dailycricket_nv/widgets/popular.dart';
+import 'package:dailycricket_nv/widgets/trending.dart';
 import 'package:dailycricket_nv/config/color_constants.dart';
+import 'package:dailycricket_nv/widgets/daily_updates.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

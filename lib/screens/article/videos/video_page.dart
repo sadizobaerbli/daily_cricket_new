@@ -1,6 +1,6 @@
 
-import 'package:dailycricket_nv/common_widgets/featured_videos.dart';
-import 'package:dailycricket_nv/common_widgets/popular.dart';
+import 'package:dailycricket_nv/widgets/featured_videos.dart';
+import 'package:dailycricket_nv/widgets/popular.dart';
 import 'package:dailycricket_nv/config/color_constants.dart';
 import 'package:dailycricket_nv/config/strings.dart';
 import 'package:dailycricket_nv/config/text_style.dart';
