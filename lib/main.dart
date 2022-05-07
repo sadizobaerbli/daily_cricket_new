@@ -20,6 +20,7 @@ import 'blocs/home/home_bloc.dart';
 import 'blocs/match_details/match_details_bloc.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   //=========Disabled landscape mode=========
   //-----------------------------------------
 
@@ -87,7 +88,7 @@ class MyApp extends StatelessWidget {
           );
         },
         debugShowCheckedModeBanner: false,
-        initialRoute: '/photoDetails',
+        initialRoute: '/splashScreen',
         routes: {
           '/splashScreen': (_) => Splash(),
           '/bottomNavigation': (_) => BottomNavigation(),

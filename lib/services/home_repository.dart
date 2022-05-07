@@ -7,7 +7,7 @@ class HomeRepository {
   ///This section refers a api call
   ///+ get request
   ///+ will get match's Live section data
-  Future<Response?> getLiveMatchesData() async {
+  Future getLiveMatchesData() async {
     try {
       final response = await dio.get(
         "$liveMatchesUrl",
@@ -32,7 +32,7 @@ class HomeRepository {
   ///This section refers a api call
   ///+ get request
   ///+ will get featured videos data
-  Future<Response?> getFeaturedVideosData() async {
+  Future getFeaturedVideosData() async {
     try {
       final response = await dio.get(
         "$featuredVideosUrl",
@@ -57,7 +57,7 @@ class HomeRepository {
   ///This section refers a api call
   ///+ get request
   ///+ will get editors pick data
-  Future<Response?> getEditorsPickData() async {
+  Future getEditorsPickData() async {
     try {
       final response = await dio.get(
         "$editorsPickUrl",

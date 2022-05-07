@@ -3,7 +3,7 @@ import 'package:dailycricket_nv/config/color_constants.dart';
 import 'package:dailycricket_nv/config/text_style.dart';
 import 'package:dailycricket_nv/providers/home_provider.dart';
 import 'package:dailycricket_nv/models/slider_model.dart';
-import 'package:dailycricket_nv/screens/match_details.dart';
+import 'package:dailycricket_nv/screens/match_details/match_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';

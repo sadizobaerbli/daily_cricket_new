@@ -7,7 +7,7 @@ class MatchDetailsRepository {
   ///This section refers a api call
   ///+ get request
   ///+ will get match details Live section data
-  Future<Response?> getMatchDetailsLiveData(int matchId) async {
+  Future getMatchDetailsLiveData(int matchId) async {
     try {
       final response = await dio.get(
         matchDetailsLiveUrl(matchId),
@@ -32,7 +32,7 @@ class MatchDetailsRepository {
   ///This section refers a api call
   ///+ get request
   ///+ will get match details scoreboard section data
-  Future<Response?> getMatchDetailsScoreboardData(int matchId) async {
+  Future getMatchDetailsScoreboardData(int matchId) async {
     try {
       final response = await dio.get(
         matchDetailsScoreboardUrl(matchId),
