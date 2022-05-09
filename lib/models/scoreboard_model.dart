@@ -134,7 +134,7 @@ class Response {
   String? equation;
   String? live;
   String? result;
-  String? resultType;
+  dynamic resultType;
   String? winMargin;
   int? winningTeamId;
   int? commentary;
@@ -765,7 +765,11 @@ class CurrentPartnership {
         "overs": overs == null ? null : overs,
         "batsmen": batsmen == null
             ? null
-            : List<dynamic>.from(batsmen!.map((x) => x.toJson())),
+            : List<dynamic>.from(
+                batsmen!.map(
+                  (x) => x.toJson(),
+                ),
+              ),
       };
 }
 
@@ -778,7 +782,7 @@ class CurrentPartnershipBatsman {
   });
 
   String? name;
-  int? batsmanId;
+  dynamic batsmanId;
   int? runs;
   int? balls;
 

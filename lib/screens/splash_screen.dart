@@ -12,7 +12,7 @@ class Splash extends StatelessWidget {
     return StatefulWrapper(
       onInit: () {
         Timer(Duration(seconds: 1), () {
-          Navigator.pushNamed(context, '/homeScreen');
+          Navigator.pushNamed(context, '/bottomNavigation');
         });
       },
       child: Container(

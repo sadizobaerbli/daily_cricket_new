@@ -1,3 +1,4 @@
+import 'package:dailycricket_nv/screens/match_details/commentary_card.dart';
 import 'package:dailycricket_nv/screens/match_details/oneside_scoreboard.dart';
 import '../../blocs/match_details/match_details_state.dart';
 import '../../models/slider_model.dart';
@@ -38,18 +39,6 @@ class _MatchDetailsState extends State<MatchDetails> {
       return _scoreboardSection();
     } else {
       return _scoreboardSection();
-    }
-  }
-
-  _scoreColor(dynamic score) {
-    if (score == 'w') {
-      return PrimaryRed;
-    } else if (score == 4) {
-      return PrimaryBlue;
-    } else if (score == 6) {
-      return PrimaryGreen;
-    } else {
-      return Grey.withOpacity(.4);
     }
   }
 
@@ -154,300 +143,11 @@ class _MatchDetailsState extends State<MatchDetails> {
               shrinkWrap: true,
               reverse: true,
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.only(bottom: 16.h),
-                  child: Column(
-                    children: [
-                      Center(
-                        child: Container(
-                          height: 51.h,
-                          width: 371.w,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(18.r),
-                            ),
-                            color: PrimaryGreen,
-                          ),
-                          padding: EdgeInsets.only(left: 28.w, right: 20.w),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    '${state.overWiseCommentary[index].commentary.split(',')[0]}',
-                                    style: semiBoldText(
-                                        fontSize: 12.sp, color: BasicWhite),
-                                  ),
-                                  Text(
-                                    '${state.overWiseCommentary[index].commentary.split(' ').last}',
-                                    style: boldText(
-                                        fontSize: 14.sp, color: BasicWhite),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    '${state.overWiseCommentary[index].commentary.split(',')[1].substring(
-                                          1,
-                                        )}',
-                                    style: semiBoldText(
-                                        fontSize: 12.sp, color: BasicWhite),
-                                  ),
-                                  Text(
-                                    '${state.overWiseCommentary[index].commentary.split(',')[0].split('(').last.split(')').first}',
-                                    style: regularText(
-                                        fontSize: 12.sp, color: BasicWhite),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Center(
-                        child: Container(
-                          height: 58.h,
-                          width: 371.w,
-                          decoration: BoxDecoration(
-                            color: PrimaryDeepGreen,
-                          ),
-                          padding: EdgeInsets.only(left: 28.w, right: 20.w),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.only(right: 16.w),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      state.overWiseCommentary[index].batsman!
-                                                  .length >
-                                              0
-                                          ? Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  '${state.overWiseCommentary[index].batsman![0].batsmanName.split(' ')[0]}',
-                                                  style: semiBoldText(
-                                                      fontSize: 13.sp,
-                                                      color: BasicWhite),
-                                                ),
-                                                Text(
-                                                  '${state.overWiseCommentary[index].batsman![0].runs}(${state.overWiseCommentary[index].batsman![0].ballFaced})',
-                                                  style: semiBoldText(
-                                                      fontSize: 13.sp,
-                                                      color: BasicWhite),
-                                                ),
-                                              ],
-                                            )
-                                          : Container(),
-                                      SizedBox(
-                                        height: 6.h,
-                                      ),
-                                      state.overWiseCommentary[index].batsman!
-                                                  .length >
-                                              1
-                                          ? Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  '${state.overWiseCommentary[index].batsman![1].batsmanName.split(' ')[0]}',
-                                                  style: semiBoldText(
-                                                      fontSize: 13.sp,
-                                                      color: BasicWhite),
-                                                ),
-                                                Text(
-                                                  '${state.overWiseCommentary[index].batsman![1].runs}(${state.overWiseCommentary[index].batsman![0].ballFaced})',
-                                                  style: semiBoldText(
-                                                      fontSize: 13.sp,
-                                                      color: BasicWhite),
-                                                ),
-                                              ],
-                                            )
-                                          : Container(),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                height: 58.h,
-                                width: 1.sp,
-                                color: PrimaryGreen,
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 16.w),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      state.overWiseCommentary[index].bowlers!
-                                                  .length >
-                                              0
-                                          ? Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  '${state.overWiseCommentary[index].bowlers![0].bowlerName.split(' ')[1]}',
-                                                  style: semiBoldText(
-                                                      fontSize: 13.sp,
-                                                      color: BasicWhite),
-                                                ),
-                                                Text(
-                                                  '${state.overWiseCommentary[index].bowlers![0].overs}-${state.overWiseCommentary[index].bowlers![0].maidens}-${state.overWiseCommentary[index].bowlers![0].runs}-${state.overWiseCommentary[index].bowlers![0].wickets}',
-                                                  style: semiBoldText(
-                                                      fontSize: 13.sp,
-                                                      color: BasicWhite),
-                                                ),
-                                              ],
-                                            )
-                                          : Container(),
-                                      SizedBox(
-                                        height: 6.h,
-                                      ),
-                                      state.overWiseCommentary[index].bowlers!
-                                                  .length >
-                                              1
-                                          ? Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  '${state.overWiseCommentary[index].bowlers![1].bowlerName.split(' ')[1]}',
-                                                  style: semiBoldText(
-                                                      fontSize: 13.sp,
-                                                      color: BasicWhite),
-                                                ),
-                                                Text(
-                                                  '${state.overWiseCommentary[index].bowlers![1].overs}-${state.overWiseCommentary[index].bowlers![1].maidens}-${state.overWiseCommentary[index].bowlers![1].runs}-${state.overWiseCommentary[index].bowlers![1].wickets}',
-                                                  style: semiBoldText(
-                                                      fontSize: 13.sp,
-                                                      color: BasicWhite),
-                                                ),
-                                              ],
-                                            )
-                                          : Container(),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Center(
-                        child: Container(
-                          width: 371.w,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.vertical(
-                              bottom: Radius.circular(18.r),
-                            ),
-                            color: BasicWhite,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Grey.withOpacity(0.2),
-                                spreadRadius: 1,
-                                blurRadius: 2,
-                                offset:
-                                    Offset(0, 1), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          padding: EdgeInsets.only(left: 28.w, right: 16.w),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 17.h,
-                              ),
-                              ListView.builder(
-                                  itemCount: state.overWiseCommentary.length,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  reverse: true,
-                                  itemBuilder: (context, i) {
-                                    return Padding(
-                                      padding: EdgeInsets.only(bottom: 8.w),
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            '${state.overWiseCommentary[index].oneOverCommentary[i].over}.${state.overWiseCommentary[index].oneOverCommentary[i].ball}',
-                                            style: semiBoldText(
-                                                fontSize: 15.sp, color: Grey),
-                                          ),
-                                          SizedBox(
-                                            width: 24.w,
-                                          ),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(16.r),
-                                              color: _scoreColor(state
-                                                  .overWiseCommentary[index]
-                                                  .oneOverCommentary[i]
-                                                  .score),
-                                            ),
-                                            child: SizedBox(
-                                              height: 25.h,
-                                              width: 47.w,
-                                              child: Center(
-                                                child: Text(
-                                                  '${state.overWiseCommentary[index].oneOverCommentary[i].score}'
-                                                      .toUpperCase(),
-                                                  style: boldText(
-                                                    fontSize: 14.sp,
-                                                    color: BasicWhite,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 20.w,
-                                          ),
-                                          FittedBox(
-                                            fit: BoxFit.fill,
-                                            child: SizedBox(
-                                              width: 206.w,
-                                              child: Text(
-                                                '${state.overWiseCommentary[index].oneOverCommentary[i].commentary}',
-                                                maxLines: 2,
-                                                style: semiBoldText(
-                                                    fontSize: 11.sp,
-                                                    color: Grey),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  }),
-                              SizedBox(
-                                height: 23.h,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                return CommentaryCard(
+                    overWiseCommentary: state.overWiseCommentary[index],
                 );
-              });
+              },
+          );
         } else {
           return Container();
         }
@@ -464,10 +164,16 @@ class _MatchDetailsState extends State<MatchDetails> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              OneSideScoreboard(
-                inning: state.matchDetailsScoreboardModel.response!.innings![0],
+              ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: state.matchDetailsScoreboardModel.response!.innings!.length,
+                itemBuilder: (context, index){
+                  return OneSideScoreboard(
+                    inning: state.matchDetailsScoreboardModel.response!.innings![index],
+                  );
+                },
               ),
-              //_oneSideScoreboard(state.matchDetailsScoreboardModel.response!.innings!.length > 1 ? state.matchDetailsScoreboardModel.response!.innings![1] : state.matchDetailsScoreboardModel.response!.innings![0]),
               SizedBox(height: 50.h),
             ],
           );

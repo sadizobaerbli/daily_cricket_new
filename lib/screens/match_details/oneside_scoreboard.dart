@@ -279,21 +279,19 @@ class OneSideScoreboard extends StatelessWidget {
                 ),
               ),
               SizedBox(width: 18.w),
-              Wrap(
-                children: [
-                  Row(
-                    children: List.generate(
-                      inning.didNotBat!.length,
-                      (index) => Padding(
-                        padding: EdgeInsets.only(right: 4.w),
-                        child: Text(
+              SizedBox(
+                width: 200,
+                child: Wrap(
+                  direction: Axis.vertical,
+                  spacing: 4.w,
+                  children: List.generate(
+                    inning.didNotBat!.length,
+                        (index) => Text(
                           inning.didNotBat![index].name! + ',',
                           style: semiBoldText(fontSize: 10.sp),
                         ),
-                      ),
-                    ),
                   ),
-                ],
+                ),
               ),
             ],
           ),
@@ -641,7 +639,7 @@ class OneSideScoreboard extends StatelessWidget {
               SizedBox(width: 24.w),
               Center(
                 child: Text(
-                  "0.1-6.0".toUpperCase(),
+                  "null".toUpperCase(),
                   style: semiBoldText(
                     fontSize: 10.sp,
                   ),
@@ -650,7 +648,7 @@ class OneSideScoreboard extends StatelessWidget {
               SizedBox(width: 44.w),
               Center(
                 child: Text(
-                  "206".toUpperCase(),
+                  "null".toUpperCase(),
                   style: semiBoldText(
                     fontSize: 10.sp,
                   ),

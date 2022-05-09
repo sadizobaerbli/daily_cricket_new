@@ -8,13 +8,18 @@ import 'article/article_page.dart';
 import 'fixture/fixture_page.dart';
 import 'more_option.dart';
 
-class BottomNavigation extends StatelessWidget {
+class BottomNavigation extends StatefulWidget {
   BottomNavigation({Key? key}) : super(key: key);
 
+  @override
+  State<BottomNavigation> createState() => _BottomNavigationState();
+}
+
+class _BottomNavigationState extends State<BottomNavigation> {
   String selectedTab = 'home';
 
   ///This section select the current selected item
-  void _onTabSelect({String? tabName, required StateSetter setState}) {
+  void _onTabSelect({String? tabName}) {
     setState(() {
       selectedTab = tabName!;
     });
@@ -35,33 +40,29 @@ class BottomNavigation extends StatelessWidget {
 
   ///This section refers single navbar item
   _tabItem({String? title, ImageIcon? imageIcon}) {
-    return StatefulBuilder(
-      builder: (context, setState) {
-        return InkWell(
-          onTap: () => _onTabSelect(tabName: title, setState: setState),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              imageIcon!,
-              SizedBox(
-                height: 5.h,
-              ),
-              Text(
-                title!.toUpperCase(),
-                style: selectedTab == title
-                    ? boldText(
-                        fontSize: 9.sp,
-                        color: BasicWhite,
-                      )
-                    : regularText(
-                        fontSize: 9.sp,
-                        color: BasicWhite,
-                      ),
-              ),
-            ],
+    return InkWell(
+      onTap: () => _onTabSelect(tabName: title),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          imageIcon!,
+          SizedBox(
+            height: 5.h,
           ),
-        );
-      },
+          Text(
+            title!.toUpperCase(),
+            style: selectedTab == title
+                ? boldText(
+                    fontSize: 9.sp,
+                    color: BasicWhite,
+                  )
+                : regularText(
+                    fontSize: 9.sp,
+                    color: BasicWhite,
+                  ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -168,10 +169,14 @@ class BottomNavigation extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            height: 896.h,
-            width: 414.w,
-            child: _tabItemView(),
+          StatefulBuilder(
+            builder: (context, setState) {
+              return Container(
+                height: 896.h,
+                width: 414.w,
+                child: _tabItemView(),
+              );
+            },
           ),
           Positioned(
             bottom: 0.h,
