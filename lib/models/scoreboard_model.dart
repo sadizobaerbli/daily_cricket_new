@@ -140,7 +140,7 @@ class Response {
   int? commentary;
   int? wagon;
   int? latestInningNumber;
-  DateTime? presquadTime;
+  dynamic presquadTime;
   String? verifyTime;
   Toss? toss;
   String? currentOver;
@@ -210,7 +210,8 @@ class Response {
             : json["latest_inning_number"],
         presquadTime: json["presquad_time"] == null
             ? null
-            : DateTime.parse(json["presquad_time"]),
+            : json["presquad_time"].runtimeType.toString() == 'DateTime'
+              ? DateTime.parse(json["presquad_time"]) : json["presquad_time"],
         verifyTime: json["verify_time"] == null ? null : json["verify_time"],
         toss: json["toss"] == null ? null : Toss.fromJson(json["toss"]),
         currentOver: json["current_over"] == null ? null : json["current_over"],

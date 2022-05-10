@@ -53,4 +53,27 @@ class MatchDetailsRepository {
       }
     }
   }
+
+
+  Future getMatchDetailsCommentaryData(int matchId) async {
+    try {
+      final response = await dio.get(
+        matchDetailsCommentaryUrl(matchId),
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Vary': 'Accept',
+          },
+          followRedirects: false,
+        ),
+      );
+      return response;
+    } catch (e) {
+      if (e is DioError) {
+        print(e);
+      } else {
+        rethrow;
+      }
+    }
+  }
 }

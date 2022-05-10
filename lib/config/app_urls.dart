@@ -14,3 +14,6 @@ String matchDetailsLiveUrl(int matchId) =>
 
 String matchDetailsScoreboardUrl(int matchId) =>
     '$appBaseUrl/live/matches/$matchId/scorecard?token=$_apiKey';
+
+String matchDetailsCommentaryUrl(int matchId) =>
+    '$appBaseUrl/live/matches/$matchId/innings/1/commentary?token=$_apiKey';

@@ -18,7 +18,7 @@ class BowlersDetails {
   int runs;
   int wickets;
   int maidens;
-  int overs;
+  dynamic overs;
 
   BowlersDetails(
       {required this.runs,

@@ -236,7 +236,7 @@ class Bowler {
   int? runsConceded;
   int? wickets;
   int? maidens;
-  String? econ;
+  dynamic econ;
 
   factory Bowler.fromJson(Map<String, dynamic> json) => Bowler(
         name: json["name"] == null ? null : json["name"],
@@ -371,7 +371,7 @@ class Bowl {
   });
 
   int? runsConceded;
-  int? overs;
+  dynamic overs;
   int? wickets;
   int? maidens;
   dynamic bowlerId;
@@ -436,7 +436,7 @@ class LiveInning {
   String? scores;
   String? scoresFull;
   List<Fielder>? fielder;
-  LastWicket? lastWicket;
+  dynamic lastWicket;
   ExtraRuns? extraRuns;
   Equations? equations;
   CurrentPartnership? currentPartnership;
@@ -464,7 +464,9 @@ class LiveInning {
                 json["fielder"].map((x) => Fielder.fromJson(x))),
         lastWicket: json["last_wicket"] == null
             ? null
-            : LastWicket.fromJson(json["last_wicket"]),
+            : json["last_wicket"].runtimeType.toString() == 'bool'
+              ? json["last_wicket"]
+              : LastWicket.fromJson(json["last_wicket"]),
         extraRuns: json["extra_runs"] == null
             ? null
             : ExtraRuns.fromJson(json["extra_runs"]),

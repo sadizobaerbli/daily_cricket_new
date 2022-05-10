@@ -37,8 +37,14 @@ class _MatchDetailsState extends State<MatchDetails> {
             MatchDetailsScoreboardEvent(matchId: widget.sliderModel.matchId!),
           );
       return _scoreboardSection();
-    } else {
-      return _scoreboardSection();
+    } else if(item == 'Commentary'){
+      context.read<MatchDetailsBloc>().add(
+        MatchDetailsCommentaryEvent(matchId: widget.sliderModel.matchId!),
+      );
+      return _commentarySection();
+    }
+    else{
+      return Container();
     }
   }
 
@@ -176,6 +182,30 @@ class _MatchDetailsState extends State<MatchDetails> {
               ),
               SizedBox(height: 50.h),
             ],
+          );
+        } else {
+          return Container();
+        }
+      },
+    );
+  }
+
+  _commentarySection(){
+    return BlocBuilder<MatchDetailsBloc, MatchDetailsState>(
+      builder: (context, state) {
+        if (state is MatchDetailsLoading) {
+          return _matchDetailsLoading();
+        } else if (state is MatchDetailsCommentary) {
+          return ListView.builder(
+            itemCount: state.overWiseCommentary.length,
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            reverse: true,
+            itemBuilder: (context, index) {
+              return CommentaryCard(
+                overWiseCommentary: state.overWiseCommentary[index],
+              );
+            },
           );
         } else {
           return Container();

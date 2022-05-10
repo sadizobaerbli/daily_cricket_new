@@ -41,6 +41,16 @@ class MatchDetailsScoreboard extends MatchDetailsState {
   List<Object> get props => [matchDetailsScoreboardModel];
 }
 
+class MatchDetailsCommentary extends MatchDetailsState {
+
+  final List<OverWiseCommentary> overWiseCommentary;
+
+  MatchDetailsCommentary({required this.overWiseCommentary});
+
+  @override
+  List<Object> get props => [overWiseCommentary];
+}
+
 //------------------failure state-----------------
 
 class MatchDetailsFailure extends MatchDetailsState {

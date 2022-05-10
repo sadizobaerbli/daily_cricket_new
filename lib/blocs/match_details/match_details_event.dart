@@ -25,3 +25,12 @@ class MatchDetailsScoreboardEvent extends MatchDetailsEvent {
   @override
   List<Object> get props => [];
 }
+
+class MatchDetailsCommentaryEvent extends MatchDetailsEvent {
+
+  final int matchId;
+  MatchDetailsCommentaryEvent({required this.matchId});
+
+  @override
+  List<Object> get props => [matchId];
+}
