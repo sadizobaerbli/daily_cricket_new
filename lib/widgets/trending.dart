@@ -45,7 +45,7 @@ class Trending extends StatelessWidget {
       children: [
         Container(
           height: 187.h,
-          width: 190.w,
+          width: 187.w,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(12.r),
             child: Image.asset(

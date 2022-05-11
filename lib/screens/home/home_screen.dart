@@ -463,7 +463,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   _dailyUpdatesPick(),
                   _trending(),
                   _liveCard(),
-                  _newsCard(),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                    child: _newsCard(),
+                  ),
                   _popular(),
                 ],
               ),

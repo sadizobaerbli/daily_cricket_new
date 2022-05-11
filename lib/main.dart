@@ -1,3 +1,5 @@
+import 'package:dailycricket_nv/screens/article/article_details.dart';
+
 import '../../screens/article/article_page.dart';
 import '../../screens/article/photos/photo_details.dart';
 import '../../screens/bottom_navigation_bar.dart';
@@ -97,6 +99,7 @@ class MyApp extends StatelessWidget {
           '/seriesPage': (_) => SeriesPage(),
           '/fixturePage': (_) => FixturePage(),
           '/photoDetails': (_) => PhotoDetails(),
+          '/articleDetails': (_) => ArticleDetails(),
         },
       ),
     );

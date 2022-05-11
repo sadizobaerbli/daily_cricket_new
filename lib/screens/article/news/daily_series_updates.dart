@@ -104,7 +104,7 @@ class _DailySeriesUpdatesState extends State<DailySeriesUpdates> {
   _newsCard(int size){
 
     return Container(
-      margin: EdgeInsets.only(left: 15.w,),
+      margin: EdgeInsets.only(left: 15.w, right: 15.w),
       child: ListView.builder(
           itemCount: size,
           scrollDirection: Axis.vertical,
@@ -119,7 +119,7 @@ class _DailySeriesUpdatesState extends State<DailySeriesUpdates> {
   _popular(){
 
     return Container(
-      margin: EdgeInsets.only(left: 15.w),
+      margin: EdgeInsets.only(left: 0.w),
       child: Column(
         children: [
           Popular(),

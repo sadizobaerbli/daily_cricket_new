@@ -14,13 +14,18 @@ class FeaturedVideos extends StatelessWidget {
 
   ///This section generates thumb-nil image
   String _getThumbImage({String? link}) {
-    var divider = link!.split('/');
-    String videoId = divider[4].split("?")[0];
-    String thumbingImageUrl =
-        'https://img.youtube.com/vi/$videoId/hqdefault.jpg';
+    if(link != ""){
+      var divider = link!.split('/');
+      String videoId = divider[4].split("?")[0];
+      String thumbingImageUrl =
+          'https://img.youtube.com/vi/$videoId/hqdefault.jpg';
 
-    print(thumbingImageUrl);
-    return thumbingImageUrl;
+      print(thumbingImageUrl);
+      return thumbingImageUrl;
+    }
+    else{
+      return link ?? "";
+    }
   }
 
   @override
@@ -37,7 +42,7 @@ class FeaturedVideos extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15.r),
               child: Image.network(
-                _getThumbImage(link: url),
+                _getThumbImage(link: url ?? ""),
                 fit: BoxFit.cover,
               ),
             ),
